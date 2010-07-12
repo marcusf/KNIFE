@@ -15,7 +15,7 @@ class KlazzIndexVisitor extends AbstractFoldingVisitor<KlazzIndex> {
 
     public Object visitCompilationUnit(CompilationUnitTree node, Trees p)
     {
-        packageName = CompilerUtil.getPackageName(node.getPackageName());
+        packageName = Common.getPackageName(node.getPackageName());
         return super.visitCompilationUnit(node, p);
     }   
 

@@ -1,9 +1,12 @@
 package analyzer;
 
+import static com.google.common.base.Joiner.on;
+
+import com.google.common.collect.Ordering;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MemberSelectTree;
 
-public class CompilerUtil {
+public class Common {
 
     public static String getPackageName(ExpressionTree packageName)
     {
@@ -12,5 +15,10 @@ public class CompilerUtil {
         } else {
             return "";
         }
+    }
+    
+    
+    public static <T> String orderedJoin(String sep, Iterable<? extends Comparable<T>> col) {
+        return on(sep).join(Ordering.natural().sortedCopy(col));
     }
 }

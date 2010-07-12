@@ -6,6 +6,7 @@ import java.util.Set;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.SetMultimap;
+import com.google.common.collect.Sets;
 
 public class UsageMap {
 
@@ -14,6 +15,13 @@ public class UsageMap {
     private SetMultimap<String, String> importsByClass;
     private SetMultimap<String, String> usagesByClass;
 
+    
+    UsageMap() {
+        globalUses     = Sets.newHashSet();
+        classes        = Sets.newHashSet();
+        importsByClass = HashMultimap.create();
+        usagesByClass  = null;
+    }
     
     public void addFilesUsedByClass(String className, List<String> uses)
     {
