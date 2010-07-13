@@ -12,7 +12,6 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 import analyzer.FileSupplier;
-import analyzer.LoggingFileManager;
 
 import com.google.inject.Inject;
 import com.sun.source.util.JavacTask;
@@ -40,9 +39,8 @@ public class VisitorDriver {
     {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
-        LoggingFileManager fm = new LoggingFileManager(fileManager);
-        Iterable<? extends JavaFileObject> compilationUnits = fm.getJavaFileObjectsFromStrings(files);
-        CompilationTask possibleTask = compiler.getTask(null, fm, null, null, null, compilationUnits);
+        Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromStrings(files);
+        CompilationTask possibleTask = compiler.getTask(null, fileManager, null, null, null, compilationUnits);
 
         checkState(possibleTask instanceof JavacTask, "Run sun-javac");
 
