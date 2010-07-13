@@ -1,4 +1,4 @@
-package analyzer;
+package analyzer.analysis;
 
 public class Klazz {
 

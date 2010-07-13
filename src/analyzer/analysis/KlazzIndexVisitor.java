@@ -1,6 +1,10 @@
-package analyzer;
+package analyzer.analysis;
 
 
+import analyzer.Common;
+import analyzer.analysis.KlazzIndex.New;
+
+import com.google.inject.Inject;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.util.Trees;
@@ -9,7 +13,8 @@ class KlazzIndexVisitor extends AbstractFoldingVisitor<KlazzIndex> {
 
     private String packageName;
 
-    public KlazzIndexVisitor(KlazzIndex index) {
+    @Inject
+    public KlazzIndexVisitor(@New KlazzIndex index) {
         super(index);
     }
 

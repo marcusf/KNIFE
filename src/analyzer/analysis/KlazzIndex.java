@@ -1,10 +1,19 @@
-package analyzer;
+package analyzer.analysis;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 import java.util.Set;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
+import com.google.inject.BindingAnnotation;
+
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+
 
 /**
  * Index of classes for use in analysis step
@@ -16,7 +25,8 @@ public class KlazzIndex {
     private SetMultimap<String, Klazz> simpleNameResolver; 
     private Set<Klazz> classes;
         
-    KlazzIndex(int initialSize) {
+    KlazzIndex() {
+        int initialSize = 1000;
         simpleNameResolver = HashMultimap.create(initialSize, (int) Math.ceil(Math.sqrt(initialSize)));
         classes            = Sets.newHashSet();
     }
@@ -38,4 +48,8 @@ public class KlazzIndex {
     Set<Klazz> getResolvedClassesByName(String className) {
          return simpleNameResolver.get(className);
     }
+    
+    @BindingAnnotation @Target({ FIELD, PARAMETER, METHOD }) @Retention(RUNTIME)
+    public @interface New {}
+
 }

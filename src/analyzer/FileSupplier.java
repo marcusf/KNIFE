@@ -8,15 +8,26 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.List;
 
+import org.apache.commons.cli.CommandLine;
+
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 
 public class FileSupplier {
 
-    static List<String> getFilesToCompile(String[] argv, 
-                                          String excludePattern)
+    private String[] argv;
+    private String excludePattern;
+
+    @Inject
+    public FileSupplier(CommandLine arguments) {
+        argv = arguments.getArgs(); 
+        excludePattern = arguments.getOptionValue(AppOptions.OPT_EXCLUDE);
+    }
+    
+    public List<String> getFiles()
     {
         boolean hasExcludePattern = Strings.emptyToNull(excludePattern) != null;
 
@@ -27,7 +38,7 @@ public class FileSupplier {
             String excludePackage = excludePattern.replace('.', '/');
             return newArrayList(filter(unfiltered, not(containsPattern(excludePackage))));                
         }
-        return unfiltered;      
+        return unfiltered;
     }
 
 

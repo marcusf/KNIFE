@@ -1,4 +1,4 @@
-package analyzer;
+package analyzer.analysis;
 
 import com.sun.source.util.TreePathScanner;
 import com.sun.source.util.Trees;

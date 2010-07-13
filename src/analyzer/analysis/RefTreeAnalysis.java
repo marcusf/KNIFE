@@ -1,4 +1,4 @@
-package analyzer;
+package analyzer.analysis;
 
 import java.io.PrintStream;
 import java.util.Comparator;
@@ -9,19 +9,21 @@ import java.util.TreeSet;
 
 import org.apache.commons.cli.CommandLine;
 
+import analyzer.AppOptions;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
+import com.google.inject.Inject;
 
-public class RefTreeAnalysis {
+public class RefTreeAnalysis implements Analysis {
 
     private final CommandLine opts;
     private final UsageMap depMap;
     private final PrintStream out;
 
-    public RefTreeAnalysis(CommandLine opts,
-                           UsageMap depMap,
-                           PrintStream out)
+    @Inject
+    public RefTreeAnalysis(CommandLine opts, UsageMap depMap, PrintStream out)
     {
         this.opts = opts;
         this.depMap = depMap;
@@ -31,8 +33,8 @@ public class RefTreeAnalysis {
     
     public void execute() {
         
-        int MAX_COUNT = opts.hasOption(CodeAnalyzer.OPT_REFCOUNT_SHOW) 
-                ? Integer.parseInt(opts.getOptionValue(CodeAnalyzer.OPT_REFCOUNT_SHOW))
+        int MAX_COUNT = opts.hasOption(AppOptions.OPT_COUNT) 
+                ? Integer.parseInt(opts.getOptionValue(AppOptions.OPT_COUNT))
                 : 3;
 
         SetMultimap<String, String> usages = depMap.getUsagesByClass();

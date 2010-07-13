@@ -1,16 +1,19 @@
-package analyzer;
+package analyzer.analysis;
 
 import java.util.List;
 
+import analyzer.Common;
+import analyzer.analysis.UsageMap.New;
 
 import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.IdentifierTree;
 import com.sun.source.tree.ImportTree;
 import com.sun.source.util.Trees;
 
-class UsageMapVisitor extends AbstractFoldingVisitor<UsageMap> {
+public class UsageMapVisitor extends AbstractFoldingVisitor<UsageMap> {
 
     private CompilationUnitTree currentUnit;
     private String packageName;
@@ -22,8 +25,9 @@ class UsageMapVisitor extends AbstractFoldingVisitor<UsageMap> {
     
     private boolean visitedClassAlready = false;
     
-    public UsageMapVisitor(KlazzIndex index, UsageMap dependencyMap) {
-        super(dependencyMap);
+    @Inject
+    public UsageMapVisitor(KlazzIndex index, @New UsageMap usageMap) {
+        super(usageMap);
         this.index = index;
     }
 
