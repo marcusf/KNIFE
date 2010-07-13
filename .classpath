@@ -1,18 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="vendor/aopalliance.jar"/>
-	<classpathentry kind="lib" path="vendor/commons-cli-1.1.jar"/>
-	<classpathentry kind="lib" path="vendor/guava-r05.jar"/>
-	<classpathentry kind="lib" path="vendor/guice-2.0.jar"/>
-	<classpathentry kind="lib" path="vendor/guice-assistedinject-2.0.jar"/>
-	<classpathentry kind="lib" path="vendor/guice-jmx-2.0.jar"/>
-	<classpathentry kind="lib" path="vendor/guice-jndi-2.0.jar"/>
-	<classpathentry kind="lib" path="vendor/guice-multibindings-2.0.jar"/>
-	<classpathentry kind="lib" path="vendor/guice-servlet-2.0.jar"/>
-	<classpathentry kind="lib" path="vendor/guice-spring-2.0.jar"/>
-	<classpathentry kind="lib" path="vendor/guice-struts2-plugin-2.0.jar"/>
-	<classpathentry kind="lib" path="vendor/guice-throwingproviders-2.0.jar"/>
-	<classpathentry kind="output" path="bin"/>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-cli/commons-cli/1.1/commons-cli-1.1.jar" sourcepath="M2_REPO/commons-cli/commons-cli/1.1/commons-cli-1.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/Users/marcusf/.m2/repository/commons-cli/commons-cli/1.1/commons-cli-1.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/com/google/guava/guava/r05/guava-r05.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/google/inject/guice/2.0/guice-2.0.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 </classpath>
