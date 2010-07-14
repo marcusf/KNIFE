@@ -1,6 +1,5 @@
 package analyzer.analysis;
 
-import java.io.PrintStream;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,6 +9,8 @@ import java.util.TreeSet;
 import org.apache.commons.cli.CommandLine;
 
 import analyzer.AppOptions;
+import analyzer.ListOutput;
+import analyzer.Output;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.SetMultimap;
@@ -20,10 +21,10 @@ public class RefTreeAnalysis implements Analysis {
 
     private final CommandLine opts;
     private final UsageMap depMap;
-    private final PrintStream out;
+    private final ListOutput out;
 
     @Inject
-    public RefTreeAnalysis(CommandLine opts, UsageMap depMap, PrintStream out)
+    public RefTreeAnalysis(CommandLine opts, UsageMap depMap, ListOutput out)
     {
         this.opts = opts;
         this.depMap = depMap;
@@ -31,7 +32,7 @@ public class RefTreeAnalysis implements Analysis {
         
     }
     
-    public void execute() {
+    public Output execute() {
         
         int MAX_COUNT = opts.hasOption(AppOptions.OPT_COUNT) 
                 ? Integer.parseInt(opts.getOptionValue(AppOptions.OPT_COUNT))
@@ -65,8 +66,10 @@ public class RefTreeAnalysis implements Analysis {
         Set<String> result = addDependencies(imports);
 
         for (String dep: result) {
-            out.println(dep);
+            out.add(dep);
         }
+        
+        return out;
         
     }
     

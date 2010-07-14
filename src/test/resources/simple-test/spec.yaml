@@ -1,0 +1,11 @@
+analysis: imports
+options: a/A.java a/C.java b/B.java
+expected:
+    - a.C
+    - b.B
+--
+analysis: importedby
+options: -i a.C a/A.java a/C.java b/B.java
+expected:
+    - a.A
+    - b.B

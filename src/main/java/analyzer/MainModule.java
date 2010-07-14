@@ -14,6 +14,8 @@ public class MainModule extends AbstractModule {
     {
         bind(CommandLine.class)
             .toProvider(CommandLineProvider.class);
+        bind(FileSupplier.class)
+            .to(FileSupplierImpl.class);
     }
 
     @Provides

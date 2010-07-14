@@ -1,11 +1,11 @@
 package analyzer.analysis;
 
-import java.io.PrintStream;
-
 import org.apache.commons.cli.CommandLine;
 
 import analyzer.AppOptions;
 import analyzer.Common;
+import analyzer.ListOutput;
+import analyzer.Output;
 
 import com.google.common.collect.SetMultimap;
 import com.google.inject.Inject;
@@ -14,10 +14,10 @@ public class RefCountAnalysis implements Analysis {
 
     private final CommandLine opts;
     private final UsageMap depMap;
-    private final PrintStream out;
+    private final ListOutput out;
 
     @Inject
-    public RefCountAnalysis(CommandLine opts, UsageMap depMap, PrintStream out)
+    public RefCountAnalysis(CommandLine opts, UsageMap depMap, ListOutput out)
     {
         this.opts = opts;
         this.depMap = depMap;
@@ -25,7 +25,7 @@ public class RefCountAnalysis implements Analysis {
         
     }
     
-    public void execute() {
+    public Output execute() {
         
         int MAX_COUNT = opts.hasOption(AppOptions.OPT_COUNT) 
                 ? Integer.parseInt(opts.getOptionValue(AppOptions.OPT_COUNT))
@@ -35,13 +35,15 @@ public class RefCountAnalysis implements Analysis {
 
         for (String dep: usages.keySet()) {
             int cnt = usages.get(dep).size();
-            out.print(cnt + " " + dep);
+            String s = "";
+            s += cnt + " " + dep;
             if (cnt <= MAX_COUNT) {
-                out.print(":\t" + Common.orderedJoin(", ", usages.get(dep)));
+                s += (":\t" + Common.orderedJoin(", ", usages.get(dep)));
             }
-            out.print('\n');
+            out.add(s);
         }
-
+        
+        return out;
     }
     
 }

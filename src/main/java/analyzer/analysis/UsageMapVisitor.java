@@ -22,7 +22,7 @@ public class UsageMapVisitor extends AbstractFoldingVisitor<UsageMap> {
     
     private final KlazzIndex index;
     private String className;
-    
+        
     private boolean visitedClassAlready = false;
     
     @Inject
@@ -36,8 +36,9 @@ public class UsageMapVisitor extends AbstractFoldingVisitor<UsageMap> {
         visitedClassAlready = false;
         className           = null;
         currentUnit         = node;
-        packageName         = Common.getPackageName(currentUnit.getPackageName());
+        packageName         = currentUnit.getPackageName().toString();
         classUsages         = Lists.newArrayList();
+                
         return super.visitCompilationUnit(node, p);
     }   
     

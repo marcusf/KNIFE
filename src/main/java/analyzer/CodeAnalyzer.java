@@ -33,7 +33,7 @@ public class CodeAnalyzer {
 
         try {
             Analysis analysis = injector.getInstance(Key.get(Analysis.class, Names.named(analysisName)));
-            analysis.execute();
+            analysis.execute().write();            
         } catch (ConfigurationException ce) {
             System.err.println("No such analysis " + argv[0]);
         } catch (ProvisionException pe) {

@@ -1,5 +1,9 @@
 package analyzer.analysis;
 
+import javax.tools.JavaCompiler;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
@@ -37,6 +41,12 @@ public class AnalysisModule extends AbstractModule {
     @Provides @KlazzIndex.New
     KlazzIndex providesKlazzIndex() {
         return new KlazzIndex();
+    }
+    
+    @Provides
+    StandardJavaFileManager providesStandardJavaFileManager() {
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        return compiler.getStandardFileManager(null, null, null);
     }
     
     private void configureAnalyses()

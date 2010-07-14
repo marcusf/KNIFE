@@ -1,5 +1,7 @@
 package analyzer.analysis;
 
+import analyzer.Output;
+
 public interface Analysis {
-    void execute();
+    Output execute();
 }

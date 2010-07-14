@@ -1,7 +1,6 @@
 package analyzer.analysis;
 
 
-import analyzer.Common;
 import analyzer.analysis.KlazzIndex.New;
 
 import com.google.inject.Inject;
@@ -20,7 +19,7 @@ class KlazzIndexVisitor extends AbstractFoldingVisitor<KlazzIndex> {
 
     public Object visitCompilationUnit(CompilationUnitTree node, Trees p)
     {
-        packageName = Common.getPackageName(node.getPackageName());
+        packageName = node.getPackageName().toString();
         return super.visitCompilationUnit(node, p);
     }   
 
