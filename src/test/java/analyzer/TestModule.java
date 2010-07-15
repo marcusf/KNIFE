@@ -1,6 +1,6 @@
 package analyzer;
 
-import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
@@ -9,18 +9,23 @@ import org.apache.commons.cli.CommandLine;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
-import com.google.inject.internal.Lists;
 import com.google.inject.name.Names;
 
 public class TestModule extends AbstractModule {
 
     private final List<String> arguments;
-    private final ByteArrayOutputStream output;
+    private final OutputStream output;
     private final String testName;
+    private final OutputStream error;
 
-    public TestModule(String[] commandLineArguments, ByteArrayOutputStream output, String testName) {
-        this.arguments = Lists.newArrayList(commandLineArguments);
+    public TestModule(List<String> commandLineArguments, 
+                      OutputStream output, 
+                      OutputStream error,
+                      String testName) 
+    {
+        this.arguments = commandLineArguments;
         this.output = output;
+        this.error = error;
         this.testName = testName;
     }
     
@@ -40,10 +45,16 @@ public class TestModule extends AbstractModule {
         bind(String.class)
             .annotatedWith(Names.named("testCase"))
             .toInstance(testName);
+
     }
 
     @Provides
     PrintStream providePrintStream() {
         return new PrintStream(output);
+    }
+    
+    @Provides @Output.Err
+    PrintStream provideErrStream() {
+        return new PrintStream(error);
     }
 }

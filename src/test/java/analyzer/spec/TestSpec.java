@@ -9,6 +9,8 @@ public class TestSpec {
     
     private String description;
     
+    private boolean expectError = false;
+    
     public void setAnalysis(String analysis)
     {
         this.analysis = analysis;
@@ -47,5 +49,16 @@ public class TestSpec {
     public String getDescription()
     {
         return description;
-    } 
+    }
+
+    public boolean getExpectError()
+    {
+        return expectError;
+    }
+
+    public void setExpectError(boolean expectError)
+    {
+        this.expectError = expectError;
+    }
+
 }

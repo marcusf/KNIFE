@@ -12,20 +12,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import analyzer.analysis.Analysis;
 import analyzer.analysis.AnalysisModule;
 import analyzer.spec.SpecLoader;
 import analyzer.spec.TestSpec;
 
 import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
+import com.google.common.io.CountingOutputStream;
 import com.google.common.io.Resources;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.Module;
 import com.google.inject.internal.Lists;
-import com.google.inject.name.Names;
 
 /**
  * 
@@ -42,22 +38,27 @@ public class SpecTest {
     private final TestSpec spec;
     private final Injector injector;
     
-    private Module analysisModule = new AnalysisModule();
     ByteArrayOutputStream output = new ByteArrayOutputStream(); 
+    CountingOutputStream  errput = new CountingOutputStream(new ByteArrayOutputStream());
 
     public SpecTest(String testCaseDir, int testNum, TestSpec spec) {
-        this.spec = spec;
-        analysisModule = new AnalysisModule();
-        injector = Guice.createInjector(analysisModule,
-                    new TestModule(getArguments(spec.getOptions()), output, testCaseDir));
+        
+        this.spec = spec;        
+        List<String> argv = getArguments(spec.getOptions());
+        
+        injector = Guice.createInjector(
+                    new AnalysisModule(spec.getAnalysis()),
+                    new TestModule(argv, output, errput, testCaseDir)
+                   );
     }
     
     @Test
     public void run_test() throws Exception {
-        Analysis target = getAnalysis(spec.getAnalysis());
-        target.execute().write();
+        AnalysisRunner target = injector.getInstance(AnalysisRunner.class);
+        target.startAnalysis().write();
         // For now, split on line breaks to get list.
         assertEquals(spec.getExpected(), output.toString());
+        assertEquals(spec.getExpectError(), errput.getCount() > 0);
     }
 
     @Parameters
@@ -78,14 +79,8 @@ public class SpecTest {
         return results;
     }
     
-    private Analysis getAnalysis(String analysisName)
+    private List<String> getArguments(String options)
     {
-        return injector.getInstance(Key.get(Analysis.class, Names.named(analysisName)));
-    }
-
-    private String[] getArguments(String options)
-    {
-        String[] arguments = Iterables.toArray(Splitter.on(" ").split(options), String.class);
-        return arguments;
+        return Lists.newArrayList(Splitter.on(" ").split(options));
     }
 }
