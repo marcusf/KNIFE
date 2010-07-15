@@ -1,11 +1,41 @@
+---
 analysis: imports
 options: a/A.java a/C.java b/B.java
-expected:
-    - a.C
-    - b.B
---
+expected: |
+    a.C
+    b.B
+---
 analysis: importedby
 options: -i a.C a/A.java a/C.java b/B.java
-expected:
-    - a.A
-    - b.B
+expected: |
+    a.A
+    b.B
+---
+analysis: refcount
+options: -n 0 a/A.java a/C.java b/B.java
+expected: |
+    1 b.B
+    2 a.C
+---
+analysis: refcount
+options: -n 2 a/A.java a/C.java b/B.java
+expected: |
+    1 b.B: a.A
+    2 a.C: a.A, b.B
+---
+analysis: reftree
+options: -n 1 a/A.java a/C.java b/B.java
+expected: |
+    a.C
+---
+analysis: reftree
+options: a/A.java a/C.java b/B.java
+expected: |
+    a.C
+    b.B
+---
+analysis: reftree
+options: -n 12 a/A.java a/C.java b/B.java
+expected: |
+    a.C
+    b.B

@@ -27,8 +27,17 @@ import com.google.inject.Module;
 import com.google.inject.internal.Lists;
 import com.google.inject.name.Names;
 
+/**
+ * 
+ * Uses a combination of YAML files and parameterized JUnit tests
+ * to drive testing directly from spec, eg specifying input and 
+ * asserting output without 
+ * 
+ * @author marcusf
+ *
+ */
 @RunWith(Parameterized.class)
-public class IntegrationTest {
+public class SpecTest {
 
     private final TestSpec spec;
     private final Injector injector;
@@ -36,11 +45,11 @@ public class IntegrationTest {
     private Module analysisModule = new AnalysisModule();
     ByteArrayOutputStream output = new ByteArrayOutputStream(); 
 
-    public IntegrationTest(String testName, int testNum, TestSpec spec) {
+    public SpecTest(String testCaseDir, int testNum, TestSpec spec) {
         this.spec = spec;
         analysisModule = new AnalysisModule();
         injector = Guice.createInjector(analysisModule,
-                    new TestModule(getArguments(spec.getOptions()), output));
+                    new TestModule(getArguments(spec.getOptions()), output, testCaseDir));
     }
     
     @Test
@@ -48,8 +57,7 @@ public class IntegrationTest {
         Analysis target = getAnalysis(spec.getAnalysis());
         target.execute().write();
         // For now, split on line breaks to get list.
-        Iterable<String> split = Splitter.on("\n").omitEmptyStrings().split(output.toString());
-        assertEquals(spec.getExpected(), Lists.newArrayList(split));
+        assertEquals(spec.getExpected(), output.toString());
     }
 
     @Parameters

@@ -24,7 +24,7 @@ abstract class FileSupplierBase implements FileSupplier {
 
     protected FileSupplierBase(CommandLine arguments) {
         argv = arguments.getArgs(); 
-        excludePattern = arguments.getOptionValue(AppOptions.OPT_EXCLUDE); 
+        excludePattern = arguments.getOptionValue(Common.OPT_EXCLUDE); 
     }
     
     protected List<String> getFileNames()

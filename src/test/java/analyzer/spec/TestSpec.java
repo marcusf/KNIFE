@@ -1,12 +1,13 @@
 package analyzer.spec;
 
-import java.util.List;
 
 public class TestSpec {
-
+    
     private String analysis;
     private String options;
-    private List<String> expected;
+    private String expected;
+    
+    private String description;
     
     public void setAnalysis(String analysis)
     {
@@ -28,14 +29,23 @@ public class TestSpec {
         return options;
     }
     
-    public void setExpected(List<String> expected)
+    public void setExpected(String expected)
     {
         this.expected = expected;
     }
     
-    public List<String> getExpected()
+    public String getExpected()
     {
         return expected;
     }
-    
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    } 
 }

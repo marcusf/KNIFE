@@ -1,76 +1,71 @@
 package analyzer;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
+import java.util.List;
+
 import analyzer.analysis.Analysis;
 import analyzer.analysis.AnalysisModule;
 import analyzer.analysis.AvailableAnalyses;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.Module;
 import com.google.inject.ProvisionException;
-import com.google.inject.name.Names;
+import com.google.inject.internal.Lists;
+import com.google.inject.name.Named;
 
 public class CodeAnalyzer {
        
+    private String analysisName;
+    private final AnalysisProvider provider;
+
     public static void main(String[] argv) throws Exception {
         
-        if (argv.length == 0) {
-            usage();
-            return;
-        }
-        
-        final String analysisName = argv[0];
-        final String[] arguments = constructArguments(argv);
-
-        Injector injector = Guice.createInjector(
-                new MainModule(), 
-                new AnalysisModule(),
-                getArgvInjector(arguments)
-        );
-
         try {
-            Analysis analysis = injector.getInstance(Key.get(Analysis.class, Names.named(analysisName)));
+            Injector injector = Guice.createInjector(
+                    new MainModule(Lists.newArrayList(argv)), 
+                    new AnalysisModule());
+
+            CodeAnalyzer main = injector.getInstance(CodeAnalyzer.class);
+                    
+            main.startAnalysis();
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    @Inject
+    CodeAnalyzer(@Named("Argv") List<String> argv, AnalysisProvider provider) throws IllegalArgumentException {
+        
+        this.provider = provider;
+        checkArgument(argv.size() > 0, usage());
+        analysisName = argv.get(0);
+
+    }
+    
+    private void startAnalysis() {
+        try {
+            Analysis analysis = provider.getAnalysis(analysisName);
             analysis.execute().write();            
         } catch (ConfigurationException ce) {
-            System.err.println("No such analysis " + argv[0]);
+            System.err.println("No such analysis " + analysisName);
         } catch (ProvisionException pe) {
             System.err.println("Fatal error in instantiating, see error");
             pe.printStackTrace();
         }
     }
 
-    private static Module getArgvInjector(final String[] arguments)
+    private String usage()
     {
-        return new AbstractModule() {
-            protected void configure()
-            {
-                bind(String[].class)
-                    .annotatedWith(Names.named("Argv"))
-                    .toInstance(arguments);
-            }            
-        };
-    }
-
-    private static void usage()
-    {
-        System.err.println("Usage: imports <analysis> [opts] [file [file ..]]");
-        System.err.println("Where analyses are:");
+        StringBuilder usage = new StringBuilder();
+        usage.append("Usage: imports <analysis> [opts] [file [file ..]]");
+        usage.append("Where analyses are:");
         for (String k: AvailableAnalyses.getAnalyses().keySet()) {
-            System.err.println("\t" + k);
+            usage.append("\t" + k);
         }
+        return usage.toString();
     }
 
-    private static String[] constructArguments(String[] argv)
-    {
-        String[] arguments = new String[argv.length-1];
-        
-        for (int i = 0; i < argv.length-1; i++) {
-            arguments[i] = argv[i+1];
-        }
-        
-        return arguments;
-    }
 }

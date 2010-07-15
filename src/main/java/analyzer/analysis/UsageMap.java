@@ -15,7 +15,9 @@ import com.google.common.collect.Multimaps;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 import com.google.inject.BindingAnnotation;
+import com.google.inject.Singleton;
 
+@Singleton
 public class UsageMap {
 
     private Set<String> globalUses                     = Sets.newHashSet();

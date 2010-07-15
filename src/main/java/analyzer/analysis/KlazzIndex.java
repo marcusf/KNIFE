@@ -1,5 +1,10 @@
 package analyzer.analysis;
 
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.Set;
@@ -8,11 +13,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 import com.google.inject.BindingAnnotation;
-
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
+import com.google.inject.Singleton;
 
 
 /**
@@ -20,6 +21,7 @@ import static java.lang.annotation.ElementType.METHOD;
  * 
  * @author marcusf
  */
+@Singleton
 public class KlazzIndex {
 
     private SetMultimap<String, Klazz> simpleNameResolver; 
@@ -32,7 +34,7 @@ public class KlazzIndex {
     }
     
     void add(String packageName, String className) {
-        Klazz klazz = new Klazz(packageName, className);
+        Klazz klazz = new Klazz(packageName, className);        
         classes.add(klazz);
         simpleNameResolver.put(className, klazz);
     }

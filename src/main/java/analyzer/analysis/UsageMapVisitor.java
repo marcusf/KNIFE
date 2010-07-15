@@ -2,7 +2,6 @@ package analyzer.analysis;
 
 import java.util.List;
 
-import analyzer.Common;
 import analyzer.analysis.UsageMap.New;
 
 import com.google.common.collect.Lists;

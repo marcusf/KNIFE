@@ -8,7 +8,7 @@ import java.util.TreeSet;
 
 import org.apache.commons.cli.CommandLine;
 
-import analyzer.AppOptions;
+import analyzer.Common;
 import analyzer.ListOutput;
 import analyzer.Output;
 
@@ -34,8 +34,8 @@ public class RefTreeAnalysis implements Analysis {
     
     public Output execute() {
         
-        int MAX_COUNT = opts.hasOption(AppOptions.OPT_COUNT) 
-                ? Integer.parseInt(opts.getOptionValue(AppOptions.OPT_COUNT))
+        int MAX_COUNT = opts.hasOption(Common.OPT_COUNT) 
+                ? Integer.parseInt(opts.getOptionValue(Common.OPT_COUNT))
                 : 3;
 
         SetMultimap<String, String> usages = depMap.getUsagesByClass();

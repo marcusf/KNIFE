@@ -10,16 +10,21 @@ import org.apache.commons.cli.CommandLine;
 
 import com.google.inject.Inject;
 import com.google.inject.internal.Lists;
+import com.google.inject.name.Named;
 
-public class TestFileSupplier extends FileSupplierBase implements FileSupplier {
+public class TestFileSupplierImpl extends FileSupplierBase implements FileSupplier {
 
-    private final String testBase = "simple-test";
+    private final String testCase;
     private final StandardJavaFileManager fm;
     
     @Inject
-    public TestFileSupplier(CommandLine arguments, StandardJavaFileManager fm) {
+    public TestFileSupplierImpl(@Named("testCase") String testCase, 
+                                CommandLine arguments, 
+                                StandardJavaFileManager fm) 
+    {
         super(arguments);
         this.fm = fm;
+        this.testCase = testCase;
     }
     
     @Override
@@ -30,11 +35,10 @@ public class TestFileSupplier extends FileSupplierBase implements FileSupplier {
         ClassLoader loader = ClassLoader.getSystemClassLoader();
         
         for (String fileName: fileNames) {
-            String fname = testBase + "/" + fileName;
+            String fname = testCase + "/" + fileName;
             File f = new File(loader.getResource(fname).getPath());
             returnVal.add(f);
         }
         return fm.getJavaFileObjectsFromFiles(returnVal);
     }
-
 }

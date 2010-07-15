@@ -4,7 +4,6 @@ import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
 
-import analyzer.AppOptions;
 import analyzer.Common;
 import analyzer.ListOutput;
 import analyzer.Output;
@@ -26,7 +25,7 @@ public class ImportedByAnalysis implements Analysis {
     
     public Output execute()
     {
-        String className = opts.getOptionValue(AppOptions.OPT_IMPORTED_BY);
+        String className = opts.getOptionValue(Common.OPT_IMPORTED_BY);
         Set<String> usagesByClass = depMap.getUsagesByClass(className);
         out.add(Common.orderedJoin("\n", usagesByClass));      
         
