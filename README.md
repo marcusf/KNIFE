@@ -6,4 +6,8 @@ bit messy.
 
 KNIFE uses data driven testing with JUnit4 and Yaml-specced files to easily create system tests.
 
-Will update this more further down the line.
+On the agenda right now is: 
+ * Own file globber, so that KNIFE can accept wildcards so it doesnt have to rely on files xarg'd from find
+ * Better usage information (what params for what commands, eg KNIFE --help)
+ * Maven POM-file parsing to allow for cross-module analysis
+ 
