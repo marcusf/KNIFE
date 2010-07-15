@@ -5,9 +5,9 @@
 
   <!-- project info ======================================================= -->
   <modelVersion>4.0.0</modelVersion>
-  <name>CodeAnalyzer</name>
-  <artifactId>CodeAnalyzer</artifactId>
-  <groupId>analyzer</groupId>
+  <name>KNIFE</name>
+  <artifactId>core</artifactId>
+  <groupId>knife</groupId>
   <version>0.1</version>
   <packaging>jar</packaging>
 
