@@ -16,6 +16,7 @@ import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 import com.google.inject.BindingAnnotation;
 import com.google.inject.Singleton;
+import static com.google.inject.internal.Preconditions.*;
 
 @Singleton
 public class UsageMap {
@@ -27,19 +28,19 @@ public class UsageMap {
     
     public void addFilesUsedByClass(String className, List<String> uses)
     {
-        if (className != null) {
-            importsByClass.putAll(className, uses);
-            globalUses.addAll(uses);
-            classes.addAll(uses);
-        }
+        checkNotNull(className);
+        importsByClass.putAll(className, uses);
+        globalUses.addAll(uses);
+        classes.addAll(uses);
+        classes.add(className);
     }
 
     public void addFilesUsedByClass(String className, String use) {
-        if (className != null) {
-            importsByClass.put(className, use);
-            globalUses.add(use);
-            classes.add(className);
-        }
+        checkNotNull(className);
+        importsByClass.put(className, use);
+        globalUses.add(use);
+        classes.add(className);
+        classes.add(use);
     }
 
     public Set<String> getUsedGlobal()
