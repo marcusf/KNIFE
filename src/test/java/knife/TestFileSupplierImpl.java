@@ -37,6 +37,10 @@ public class TestFileSupplierImpl extends FileSupplierBase implements FileSuppli
         List<String> fileNames = getFileNames();
         ClassLoader loader = ClassLoader.getSystemClassLoader();
         
+        if (fileNames.size() == 0) {
+            return Lists.newArrayList();
+        }
+        
         for (String fileName: fileNames) {
             String fname = testCase + "/" + fileName;
             try {

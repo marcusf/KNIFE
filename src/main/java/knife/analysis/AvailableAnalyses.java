@@ -5,7 +5,7 @@ import java.util.Map;
 import com.google.inject.internal.Maps;
 
 public class AvailableAnalyses {
-
+    
     public static Map<String, Class<? extends Analysis>> getAnalyses() {
         
         Map<String, Class<? extends Analysis>> r = Maps.newHashMap();

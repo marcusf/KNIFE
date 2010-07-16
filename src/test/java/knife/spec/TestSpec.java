@@ -3,11 +3,10 @@ package knife.spec;
 
 public class TestSpec {
     
-    private String analysis;
-    private String options;
-    private String expected;
-    
-    private String description = "";
+    private String  analysis    = "";
+    private String  options     = "";
+    private String  expected    = "";
+    private String  description = "";
     private boolean expectError = false;
     
     public void setAnalysis(String analysis)

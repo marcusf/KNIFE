@@ -11,19 +11,21 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 
 import com.google.common.base.Function;
+import static com.google.common.base.Predicates.*;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
+import static com.google.common.collect.Iterables.*;
+import static com.google.common.collect.Lists.*;
 
 
 abstract class FileSupplierBase implements FileSupplier {
 
-    private String[] argv;
+    private List<String> argv;
     private String excludePattern;
 
 
     protected FileSupplierBase(CommandLine arguments) {
-        argv = arguments.getArgs(); 
+        argv = newArrayList(filter(newArrayList(arguments.getArgs()), not(containsPattern("^\\s*$"))));
         excludePattern = arguments.getOptionValue(Common.OPT_EXCLUDE); 
     }
     
@@ -31,7 +33,7 @@ abstract class FileSupplierBase implements FileSupplier {
     {
         boolean hasExcludePattern = Strings.emptyToNull(excludePattern) != null;
 
-        List<String> unfiltered = Lists.transform(newArrayList(argv), pathNormalizer());
+        List<String> unfiltered = transform(argv, pathNormalizer());
 
         if (hasExcludePattern) {
             // Very windows hostile

@@ -11,5 +11,26 @@ expectError: true
 ---
 description: importedby analysis with files that dont exist. Should just not print anything.
 analysis: importedby
-options: NoSuchFile.java
+options: -i A NoSuchFile.java
+expected:
+---
+description: importedby analysis with no class name given should fail
+analysis: importedby
+options: A.java
+expectError: true
+---
+description: reftree analysis with no files given should just not print anything
+analysis: reftree
+expected:
+---
+description: refcount analysis with no files given should just not print anything
+analysis: reftree
+expected:
+---
+description: importedby analysis with no files given should just not print anything
+analysis: reftree
+expected:
+---
+description: imports analysis with no files given should just not print anything
+analysis: reftree
 expected:

@@ -70,7 +70,8 @@ public class SpecTest {
         assertEquals(fmtMessage("Bad output"),
                     Strings.nullToEmpty(spec.getExpected()), 
                     Strings.nullToEmpty(output.toString()));
-        assertEquals(fmtMessage((spec.getExpectError() ? "No e" : "E") + "rror expected"),
+        
+        assertEquals(fmtMessage((spec.getExpectError() ? "E" : "No e") + "rror expected"),
                     spec.getExpectError(), errput.getCount() > 0);
     }
 

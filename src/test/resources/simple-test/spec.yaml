@@ -6,6 +6,12 @@ expected: |
     a.C
     b.B
 ---
+description: Testing import listing with exclusion of a.A
+analysis: imports
+options: -x a.A a/A.java a/C.java b/B.java
+expected: |
+    a.C
+---
 description: Basic case for importedby analysis
 analysis: importedby
 options: -i a.C a/A.java a/C.java b/B.java
@@ -25,6 +31,13 @@ description: |
     twice having their referencers printed
 analysis: refcount
 options: -n 2 a/A.java a/C.java b/B.java
+expected: |
+    1 b.B: a.A
+    2 a.C: a.A, b.B
+---
+description: refcount analysis with default values 
+analysis: refcount
+options: a/A.java a/C.java b/B.java
 expected: |
     1 b.B: a.A
     2 a.C: a.A, b.B

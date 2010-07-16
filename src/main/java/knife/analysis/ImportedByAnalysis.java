@@ -10,6 +10,7 @@ import org.apache.commons.cli.CommandLine;
 
 
 import com.google.inject.Inject;
+import com.google.inject.internal.Preconditions;
 
 public class ImportedByAnalysis implements Analysis {
 
@@ -27,6 +28,10 @@ public class ImportedByAnalysis implements Analysis {
     public Output execute()
     {
         String className = opts.getOptionValue(Common.OPT_IMPORTED_BY);
+        
+        Preconditions.checkArgument(className != null && className.length() > 0,
+                "You need to specify a classname with parameter " + Common.OPT_IMPORTED_BY);
+        
         Set<String> usagesByClass = depMap.getUsagesByClass(className);
         if (usagesByClass.size() > 0) {
             out.add(Common.orderedJoin("\n", usagesByClass));
