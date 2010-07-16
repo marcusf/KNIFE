@@ -8,7 +8,7 @@ Using KNIFE
 -------------------------------------------------------------------------------------------------
 KNIFE currently features four simple analyses, which are called by:
 
-   java -jar KNIFE.jar <analysis> [args] [file1 [file2 [...]]]
+        java -jar KNIFE.jar <analysis> [args] [file1 [file2 [...]]]
 
 ### `reftree`: Follow the reference tree
 Picks out the _`-n`_ most references classes and follows their dependencies recursively until
@@ -16,7 +16,7 @@ all dependencies are enumerated. Can be used to find natural slicing points in l
 
 #### Parameters
  * `-n` How many of the most referenced classes should be used as a starting point.
-        Default is 3. 
+  Default is 3. 
 
 ### `refcount`: Reference congestion
 Displays a list of all classes used by the input files, ordered by how many times they are 
@@ -39,8 +39,8 @@ Gives a list of all the imports of all the files listed in the input.
 Parameters here can be given to any of the analyses.
 
  * `-x` A package root to exclude from the list of input files. Can be used if you give a
-        large input tree from `find` as input but want to slice away some part of the package
-        structure, eg `com.mypackage.impl.*`
+  large input tree from `find` as input but want to slice away some part of the package
+  structure, eg `com.mypackage.impl.*`
 
 Building KNIFE
 --------------
