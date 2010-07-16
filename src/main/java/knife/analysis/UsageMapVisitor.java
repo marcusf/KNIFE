@@ -36,8 +36,12 @@ public class UsageMapVisitor extends AbstractFoldingVisitor<UsageMap> {
         visitedClassAlready = false;
         className           = null;
         currentUnit         = node;
-        packageName         = currentUnit.getPackageName().toString();
         classUsages         = Lists.newArrayList();
+
+        packageName         = currentUnit.getPackageName() != null
+                            ? currentUnit.getPackageName().toString()
+                            : ""
+                            ;
                 
         return super.visitCompilationUnit(node, p);
     }   

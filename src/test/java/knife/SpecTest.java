@@ -1,6 +1,6 @@
 package knife;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
@@ -19,6 +19,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.io.CountingOutputStream;
 import com.google.common.io.Resources;
 import com.google.inject.Guice;
@@ -40,11 +41,16 @@ public class SpecTest {
     private final TestSpec spec;
     private final Injector injector;
     
-    ByteArrayOutputStream output = new ByteArrayOutputStream(); 
-    CountingOutputStream  errput = new CountingOutputStream(new ByteArrayOutputStream());
+    private ByteArrayOutputStream output = new ByteArrayOutputStream(); 
+    private CountingOutputStream  errput = new CountingOutputStream(new ByteArrayOutputStream());
+    
+    private final String testCaseDir;
+    private final int testNum;
 
     public SpecTest(String testCaseDir, int testNum, TestSpec spec) {
         
+        this.testCaseDir = testCaseDir;
+        this.testNum = testNum;
         this.spec = spec;        
         List<String> argv = getArguments(spec.getOptions());
         
@@ -57,10 +63,20 @@ public class SpecTest {
     @Test
     public void run_test() throws Exception {
         AnalysisRunner target = injector.getInstance(AnalysisRunner.class);
-        target.startAnalysis().write();
+        Output result = target.startAnalysis();
+        result.write();
+
         // For now, split on line breaks to get list.
-        assertEquals(spec.getExpected(), output.toString());
-        assertEquals(spec.getExpectError(), errput.getCount() > 0);
+        assertEquals(fmtMessage("Bad output"),
+                    Strings.nullToEmpty(spec.getExpected()), 
+                    Strings.nullToEmpty(output.toString()));
+        assertEquals(fmtMessage((spec.getExpectError() ? "No e" : "E") + "rror expected"),
+                    spec.getExpectError(), errput.getCount() > 0);
+    }
+
+    private String fmtMessage(String msg)
+    {
+        return msg + " in test " + testCaseDir + "[" + testNum + "] (" + spec.getDescription() + ")";
     }
 
     @Parameters

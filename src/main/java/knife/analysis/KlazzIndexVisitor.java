@@ -19,7 +19,11 @@ class KlazzIndexVisitor extends AbstractFoldingVisitor<KlazzIndex> {
 
     public Object visitCompilationUnit(CompilationUnitTree node, Trees p)
     {
-        packageName = node.getPackageName().toString();
+        packageName = node.getPackageName() != null 
+                    ? node.getPackageName().toString()
+                    : ""
+                    ;
+                    
         return super.visitCompilationUnit(node, p);
     }   
 

@@ -23,7 +23,11 @@ public class Klazz {
     @Override
     public String toString()
     {
-        return getPackageName() + "." + getClassName();
+        if (getPackageName().length() > 0) {
+            return getPackageName() + "." + getClassName();
+        } else {
+            return getClassName();
+        }
     }
 
     @Override

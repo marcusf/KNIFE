@@ -1,0 +1,15 @@
+---
+description: reftree with negative class roots param should give error
+analysis: reftree
+options: -n -1 A.java
+expectError: true
+---
+description: refcount analysis with negative number of refs as max to print should give error
+analysis: refcount
+options: -n -1 A.java
+expectError: true
+---
+description: importedby analysis with files that dont exist. Should just not print anything.
+analysis: importedby
+options: NoSuchFile.java
+expected:

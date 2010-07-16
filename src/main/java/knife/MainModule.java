@@ -32,6 +32,9 @@ public class MainModule extends AbstractModule {
         bind(PrintStream.class)
             .toInstance(System.out);
         
+        bind(Output.class)
+            .to(ListOutput.class);
+        
         bind(PrintStream.class)
             .annotatedWith(Output.Err.class)
             .toInstance(System.err);

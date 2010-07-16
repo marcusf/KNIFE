@@ -20,8 +20,10 @@ public abstract class FoldedResultProvider<K> implements Provider<K> {
     public K get()
     {
         try {
-            return driver.analysis(visitor);
+             K analysis = driver.analysis(visitor);
+             return analysis;
         } catch (IOException e) {
+            
             throw new RuntimeException(e);
         }
     }

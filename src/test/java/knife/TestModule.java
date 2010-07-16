@@ -50,6 +50,9 @@ public class TestModule extends AbstractModule {
             .annotatedWith(Names.named("testCase"))
             .toInstance(testName);
 
+        bind(Output.class)
+            .to(ListOutput.class);
+        
     }
 
     @Provides

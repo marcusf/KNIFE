@@ -28,7 +28,9 @@ public class ImportedByAnalysis implements Analysis {
     {
         String className = opts.getOptionValue(Common.OPT_IMPORTED_BY);
         Set<String> usagesByClass = depMap.getUsagesByClass(className);
-        out.add(Common.orderedJoin("\n", usagesByClass));      
+        if (usagesByClass.size() > 0) {
+            out.add(Common.orderedJoin("\n", usagesByClass));
+        }
         
         return out;
     }

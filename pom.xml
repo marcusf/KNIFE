@@ -29,7 +29,7 @@
                  <mainClass>knife.CodeAnalyzer</mainClass>
                </manifest>
              </archive>
-             <finalName>analyzer</finalName>
+             <finalName>KNIFE</finalName>
              <appendAssemblyId>false</appendAssemblyId>
           </configuration>
           <executions>

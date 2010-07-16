@@ -7,8 +7,7 @@ public class TestSpec {
     private String options;
     private String expected;
     
-    private String description;
-    
+    private String description = "";
     private boolean expectError = false;
     
     public void setAnalysis(String analysis)

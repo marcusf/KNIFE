@@ -40,7 +40,7 @@ public class RefTreeAnalysis implements Analysis {
                 ? Integer.parseInt(opts.getOptionValue(Common.OPT_COUNT))
                 : 3;
 
-        Preconditions.checkArgument(MAX_COUNT > 0, "At least one class needs to be available");
+        Preconditions.checkArgument(MAX_COUNT > 0, "When using -n for amount of class roots, you need at least one.");
                 
         SetMultimap<String, String> usages = depMap.getUsagesByClass();
 

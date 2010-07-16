@@ -9,6 +9,7 @@ import org.apache.commons.cli.CommandLine;
 
 import com.google.common.collect.SetMultimap;
 import com.google.inject.Inject;
+import com.google.inject.internal.Preconditions;
 
 public class RefCountAnalysis implements Analysis {
 
@@ -31,6 +32,8 @@ public class RefCountAnalysis implements Analysis {
                 ? Integer.parseInt(opts.getOptionValue(Common.OPT_COUNT))
                 : 3;
 
+        Preconditions.checkArgument(MAX_COUNT >= 0, "Can not specify a negative maximum of classes to show");
+                
         SetMultimap<String, String> usages = depMap.getUsagesByClass();
 
         for (String dep: usages.keySet()) {

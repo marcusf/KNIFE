@@ -1,39 +1,48 @@
 ---
+description: Basic case for basic import analysis
 analysis: imports
 options: a/A.java a/C.java b/B.java
 expected: |
     a.C
     b.B
 ---
+description: Basic case for importedby analysis
 analysis: importedby
 options: -i a.C a/A.java a/C.java b/B.java
 expected: |
     a.A
     b.B
 ---
+description: refcount analysis with no classes written
 analysis: refcount
 options: -n 0 a/A.java a/C.java b/B.java
 expected: |
     1 b.B
     2 a.C
 ---
+description: | 
+    refcount analysis with all classes referenced at most
+    twice having their referencers printed
 analysis: refcount
 options: -n 2 a/A.java a/C.java b/B.java
 expected: |
     1 b.B: a.A
     2 a.C: a.A, b.B
 ---
+description: reftree analysis using the most referenced class as root
 analysis: reftree
 options: -n 1 a/A.java a/C.java b/B.java
 expected: |
     a.C
 ---
+description: reftree analysis using at most three classes (default) as roots
 analysis: reftree
 options: a/A.java a/C.java b/B.java
 expected: |
     a.C
     b.B
 ---
+description: reftree analysis using at most 12 classes as root
 analysis: reftree
 options: -n 12 a/A.java a/C.java b/B.java
 expected: |

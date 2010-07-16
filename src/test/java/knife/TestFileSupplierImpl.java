@@ -39,8 +39,12 @@ public class TestFileSupplierImpl extends FileSupplierBase implements FileSuppli
         
         for (String fileName: fileNames) {
             String fname = testCase + "/" + fileName;
-            File f = new File(loader.getResource(fname).getPath());
-            returnVal.add(f);
+            try {
+                File f = new File(loader.getResource(fname).getPath());
+                returnVal.add(f);
+            } catch (NullPointerException e) {
+                // No file existed. Do nothing.
+            }
         }
         return fm.getJavaFileObjectsFromFiles(returnVal);
     }
