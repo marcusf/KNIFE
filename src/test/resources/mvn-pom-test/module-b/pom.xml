@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <name>test - module-a</name>
-  <artifactId>module-a</artifactId>
+  <name>test - module-b</name>
+  <artifactId>module-b</artifactId>
   <packaging>jar</packaging>
 
   <parent>
@@ -11,14 +11,5 @@
     <version>1.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-
-  <dependencies>
-    <dependency>
-      <groupId>knife.tests</groupId>
-      <artifactId>module-b</artifactId>
-      <version>1.0</version>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
 
 </project>
