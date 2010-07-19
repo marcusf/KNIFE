@@ -3,6 +3,8 @@ package knife.analysis;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
 import javax.tools.JavaCompiler;
 import javax.tools.JavaCompiler.CompilationTask;
@@ -10,7 +12,7 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 import knife.FileSupplier;
-
+import knife.Output;
 
 import com.google.inject.Inject;
 import com.sun.source.util.JavacTask;
@@ -20,11 +22,16 @@ public class VisitorDriver {
 
     private final StandardJavaFileManager fileManager;
     private final FileSupplier fileSupplier;
+    private final PrintStream err;
 
     @Inject
-    VisitorDriver(FileSupplier fileSupplier, StandardJavaFileManager fileManager) {
+    VisitorDriver(FileSupplier fileSupplier, 
+                  StandardJavaFileManager fileManager,
+                  @Output.Err PrintStream err) 
+    {
         this.fileSupplier = fileSupplier;
         this.fileManager  = fileManager;
+        this.err = err;
     }
 
 
@@ -39,8 +46,7 @@ public class VisitorDriver {
     private JavacTask getTaskForFiles()
     {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        CompilationTask possibleTask = compiler.getTask(null, fileManager, null, null, null, fileSupplier.getFiles());
-
+        CompilationTask possibleTask = compiler.getTask(new PrintWriter(err), fileManager, null, null, null, fileSupplier.getFiles());
         checkState(possibleTask instanceof JavacTask, "Run sun-javac");
 
         JavacTask task = (JavacTask) possibleTask;

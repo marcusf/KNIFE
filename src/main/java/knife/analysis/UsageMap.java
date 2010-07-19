@@ -29,6 +29,7 @@ public class UsageMap {
     public void addFilesUsedByClass(String className, List<String> uses)
     {
         checkNotNull(className);
+        checkArgument(className.length() > 0);
         importsByClass.putAll(className, uses);
         globalUses.addAll(uses);
         classes.addAll(uses);
@@ -37,6 +38,7 @@ public class UsageMap {
 
     public void addFilesUsedByClass(String className, String use) {
         checkNotNull(className);
+        checkArgument(className.length() > 0);
         importsByClass.put(className, use);
         globalUses.add(use);
         classes.add(className);

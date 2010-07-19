@@ -5,17 +5,15 @@ import static com.google.common.base.Predicates.containsPattern;
 import static com.google.common.base.Predicates.not;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 
 import com.google.common.base.Function;
-import static com.google.common.base.Predicates.*;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
-import static com.google.common.collect.Iterables.*;
-import static com.google.common.collect.Lists.*;
 
 
 abstract class FileSupplierBase implements FileSupplier {

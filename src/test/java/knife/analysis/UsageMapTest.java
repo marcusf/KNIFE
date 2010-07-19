@@ -37,6 +37,27 @@ public class UsageMapTest {
         fail();
     }
     
+    
+    @Test
+    public void no_empty_class_names() {
+        try {
+            target.addFilesUsedByClass("", Lists.newArrayList("a","b","c"));
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+        fail();
+    }
+    
+    @Test
+    public void no_empty_class_name() {
+        try {
+            target.addFilesUsedByClass("", "a");
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+        fail();
+    }
+    
     @Test
     public void reverse_mapping() {
         target.addFilesUsedByClass("a", "b");

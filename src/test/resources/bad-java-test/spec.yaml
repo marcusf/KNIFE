@@ -1,0 +1,5 @@
+---
+description: reftree with syntax error should give error
+analysis: reftree
+options: A.java
+expectError: true
