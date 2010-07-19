@@ -6,8 +6,8 @@ import java.util.List;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 
-import knife.FileSupplier;
-import knife.FileSupplierBase;
+import knife.JavacFileSupplier;
+import knife.JavacFileSupplierBase;
 
 import org.apache.commons.cli.CommandLine;
 
@@ -15,7 +15,7 @@ import com.google.inject.Inject;
 import com.google.inject.internal.Lists;
 import com.google.inject.name.Named;
 
-public class TestFileSupplierImpl extends FileSupplierBase implements FileSupplier {
+public class TestFileSupplierImpl extends JavacFileSupplierBase implements JavacFileSupplier {
 
     private final String testCase;
     private final StandardJavaFileManager fm;
@@ -34,12 +34,9 @@ public class TestFileSupplierImpl extends FileSupplierBase implements FileSuppli
     public Iterable<? extends JavaFileObject> getFiles()
     {
         List<File> returnVal = Lists.newArrayList();
-        List<String> fileNames = getFileNames();
+        Iterable<String> fileNames = getFileNames();
         ClassLoader loader = ClassLoader.getSystemClassLoader();
         
-        if (fileNames.size() == 0) {
-            return Lists.newArrayList();
-        }
         
         for (String fileName: fileNames) {
             String fname = testCase + "/" + fileName;

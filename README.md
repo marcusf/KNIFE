@@ -54,7 +54,7 @@ See `src/test/resources/simple-test/spec.yaml` for an example of a collection of
 To create a new test, you can either put it in one of the existing `spec.yaml`-files, which all
 operate on the files inside their directory, or create a new directory with its own `spec.yaml`-
 file. If you create a new directory, it must (for now) be listed in the file 
-`src/test/resources/tests`.
+`src/test/resources/spec-tests`.
 
 The format of the spec file is as follows:
 

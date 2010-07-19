@@ -23,7 +23,7 @@ public class MainModule extends AbstractModule {
     {
         bind(CommandLine.class)
             .toProvider(CommandLineProvider.class);
-        bind(FileSupplier.class)
+        bind(JavacFileSupplier.class)
             .to(FileSupplierImpl.class);
         bind(new TypeLiteral<List<String>>(){})
             .annotatedWith(Names.named("Argv"))

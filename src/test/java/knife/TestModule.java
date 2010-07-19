@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.List;
 
 import knife.CommandLineProvider;
-import knife.FileSupplier;
+import knife.JavacFileSupplier;
 import knife.Output;
 
 import org.apache.commons.cli.CommandLine;
@@ -43,7 +43,7 @@ public class TestModule extends AbstractModule {
             .annotatedWith(Names.named("Argv"))
             .toInstance(arguments);
         
-        bind(FileSupplier.class)
+        bind(JavacFileSupplier.class)
             .to(TestFileSupplierImpl.class);
         
         bind(String.class)

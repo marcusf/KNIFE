@@ -6,7 +6,7 @@
   <!-- project info ======================================================= -->
   <modelVersion>4.0.0</modelVersion>
   <name>KNIFE</name>
-  <artifactId>core</artifactId>
+  <artifactId>knife-core</artifactId>
   <groupId>knife</groupId>
   <version>0.1</version>
   <packaging>jar</packaging>

@@ -11,7 +11,7 @@ import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
-import knife.FileSupplier;
+import knife.JavacFileSupplier;
 import knife.Output;
 
 import com.google.inject.Inject;
@@ -21,11 +21,11 @@ import com.sun.source.util.Trees;
 public class VisitorDriver {
 
     private final StandardJavaFileManager fileManager;
-    private final FileSupplier fileSupplier;
+    private final JavacFileSupplier fileSupplier;
     private final PrintStream err;
 
     @Inject
-    VisitorDriver(FileSupplier fileSupplier, 
+    VisitorDriver(JavacFileSupplier fileSupplier, 
                   StandardJavaFileManager fileManager,
                   @Output.Err PrintStream err) 
     {

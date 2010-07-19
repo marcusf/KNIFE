@@ -7,7 +7,7 @@ import org.apache.commons.cli.CommandLine;
 
 import com.google.inject.Inject;
 
-public class FileSupplierImpl extends FileSupplierBase implements FileSupplier {
+public class FileSupplierImpl extends JavacFileSupplierBase implements JavacFileSupplier {
 
     private final StandardJavaFileManager fileManager;
 
