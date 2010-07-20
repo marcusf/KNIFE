@@ -6,8 +6,8 @@
   <packaging>jar</packaging>
 
   <parent>
-    <groupId>com.polopoly.core</groupId>
-    <artifactId>knife.tests</artifactId>
+    <groupId>knife.tests</groupId>
+    <artifactId>my-test</artifactId>
     <version>1.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>

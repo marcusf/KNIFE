@@ -1,39 +1,47 @@
 package knife.maven;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Map;
+import java.util.Set;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
-import knife.maven.generated_pom_4_0_0.Model;
+import com.google.common.collect.HashMultimap;
+import com.google.inject.internal.Maps;
 
 public class TopPOMLoader {
-    
-    private final InputStream inputStream;
-    private final File pomFile;
 
-    public TopPOMLoader(File pom) throws IOException {
-        pomFile = pom;
-        inputStream = new FileInputStream(pom);
+    private POMLoader pomLoader;
+    private POMModel tree;
+    private HashMultimap<POMModel, POMName> depMap;
+    private Map<POMName, POMModel> models;
+    
+    public TopPOMLoader(File pom) throws IOException, JAXBException {
+        depMap = HashMultimap.create();
+        pomLoader = new POMLoader(pom, depMap);
+        tree = pomLoader.getPOMTree();        
+        models = Maps.newHashMap();
+        
+        for (POMModel m: depMap.keySet()) {
+            models.put(m.getName(), m);
+        }
+        
     }
     
-    public SimplePOMModel getPOMTree() throws JAXBException, IOException {
-        Model pom = unmarshal();
-        SimplePOMModel pomModel = new SimplePOMModel(pom, pomFile.getParentFile());
-        return pomModel;
+    public Set<POMName> getPOMs() {
+        return models.keySet();
     }
     
-    private Model unmarshal() throws JAXBException 
-    {
-        JAXBContext ctx = JAXBContext.newInstance(Model.class.getPackage().getName());
-        Unmarshaller u = ctx.createUnmarshaller();
-        @SuppressWarnings("unchecked")
-        JAXBElement<Model> doc = (JAXBElement<Model>) u.unmarshal(inputStream);
-        return doc.getValue();
+    public Set<POMName> getDependencies(POMName pom) {
+        return depMap.get(models.get(pom));
+    }
+    
+    public POMModel getModel(POMName pomName) {
+        return models.get(pomName);
+    }
+        
+    public POMModel getTopPOM() {
+        return tree;
     }
 }
