@@ -7,12 +7,16 @@ import org.apache.commons.cli.CommandLine;
 
 import com.google.inject.Inject;
 
-public class FileSupplierImpl extends JavacFileSupplierBase implements JavacFileSupplier {
+/**
+ * Constructs JavaFileObject's from the input file
+ * stream.
+ */
+public class JavacFileSupplierImpl extends JavacFileSupplierBase implements JavacFileSupplier {
 
     private final StandardJavaFileManager fileManager;
 
     @Inject
-    public FileSupplierImpl(CommandLine arguments, StandardJavaFileManager fileManager) {
+    public JavacFileSupplierImpl(CommandLine arguments, StandardJavaFileManager fileManager) {
         super(arguments);
         this.fileManager = fileManager;
     }

@@ -12,6 +12,10 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
+/**
+ * Constructs a command line used to parse arguments with
+ * Commons CLI. Sets up options and parses them.
+ */
 public class CommandLineProvider implements Provider<CommandLine> {
     
     private final List<String> argv;
@@ -22,6 +26,21 @@ public class CommandLineProvider implements Provider<CommandLine> {
     }
     
     public CommandLine get() 
+    {
+        Options opts = createOptions();
+
+        CommandLineParser cp = new GnuParser();
+        
+        try {
+            CommandLine cl = cp.parse(opts, argv.toArray(new String[0]));
+            return cl;
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        
+    }
+
+    private Options createOptions()
     {
         Options opts = new Options();
         
@@ -36,16 +55,7 @@ public class CommandLineProvider implements Provider<CommandLine> {
 
         opts.addOption(Common.OPT_IMPORTED_BY, "who-imports", true, 
                 "Shows which classes import this class");
-
-        CommandLineParser cp = new GnuParser();
-        
-        try {
-            CommandLine cl = cp.parse(opts, argv.toArray(new String[0]));
-            return cl;
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        
+        return opts;
     }
 
 }

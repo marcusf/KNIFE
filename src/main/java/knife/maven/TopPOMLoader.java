@@ -10,6 +10,15 @@ import javax.xml.bind.JAXBException;
 import com.google.common.collect.HashMultimap;
 import com.google.inject.internal.Maps;
 
+/**
+ * This is used to construct a tree of POM models from a 
+ * top-level POM file.
+ * 
+ * It reads the POM file you give it in the constructor and 
+ * loads all artifacts referenced as modules from that POM
+ * file recursively until it has iterated over the entire
+ * POM tree.
+ */
 public class TopPOMLoader {
 
     private POMLoader pomLoader;
@@ -17,11 +26,17 @@ public class TopPOMLoader {
     private HashMultimap<POMModel, POMName> depMap;
     private Map<POMName, POMModel> models;
     
-    public TopPOMLoader(File pom) throws IOException, JAXBException {
+    /**
+     * Constructs a POM tree from the file given. 
+     * This actually does the recursion, meaning it is potentially
+     * a very expensive operation.
+     */
+    public TopPOMLoader(File pomFile) throws IOException, JAXBException {
         depMap = HashMultimap.create();
-        pomLoader = new POMLoader(pom, depMap);
-        tree = pomLoader.getPOMTree();        
         models = Maps.newHashMap();
+
+        pomLoader = new POMLoader(pomFile, depMap);
+        tree = pomLoader.getPOMTree();        
         
         for (POMModel m: depMap.keySet()) {
             models.put(m.getName(), m);

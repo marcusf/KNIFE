@@ -7,6 +7,10 @@ import knife.analysis.Analysis;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+/**
+ * Runs the analysis given from the command line, 
+ * collecting the result and writing to err as required.
+ */
 public class AnalysisRunner {
     
     private Analysis analysis;

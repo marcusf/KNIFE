@@ -11,7 +11,13 @@ import org.apache.commons.cli.CommandLine;
 
 import com.google.common.base.Strings;
 
-
+/**
+ * Provides logic for excluding files from what comes from STDIN before
+ * passing it off to munge for java objects. Useful, for example, when
+ * the input comes from find, and you want to exclude a sub package.
+ * 
+ * This code is split from the JavacFileSupplierImpl for testing reasons.
+ */
 abstract class JavacFileSupplierBase extends FileSupplierBase implements JavacFileSupplier {
 
     private String excludePattern;

@@ -10,6 +10,11 @@ import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 
+/**
+ * Guice module to wire together the shell of the application,
+ * sets up which output streams go where and what things are
+ * the arguments and so on.
+ */
 public class MainModule extends AbstractModule {
 
     private final List<String> arguments;
@@ -24,7 +29,7 @@ public class MainModule extends AbstractModule {
         bind(CommandLine.class)
             .toProvider(CommandLineProvider.class);
         bind(JavacFileSupplier.class)
-            .to(FileSupplierImpl.class);
+            .to(JavacFileSupplierImpl.class);
         bind(new TypeLiteral<List<String>>(){})
             .annotatedWith(Names.named("Argv"))
             .toInstance(arguments);

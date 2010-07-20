@@ -14,6 +14,13 @@ import com.google.common.collect.HashMultimap;
 
 import knife.maven.generated_pom_4_0_0.Model;
 
+/**
+ * Internal class used by {@link TopPOMLoader}. Does the
+ * actual bootstrapping of the recursion. Also used by 
+ * {@POMModel} objects to construct its sub modules when
+ * recursing.
+ *
+ */
 class POMLoader {
 
     protected final InputStream inputStream;

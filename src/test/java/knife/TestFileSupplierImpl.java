@@ -6,9 +6,6 @@ import java.util.List;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 
-import knife.JavacFileSupplier;
-import knife.JavacFileSupplierBase;
-
 import org.apache.commons.cli.CommandLine;
 
 import com.google.inject.Inject;
@@ -49,4 +46,5 @@ public class TestFileSupplierImpl extends JavacFileSupplierBase implements Javac
         }
         return fm.getJavaFileObjectsFromFiles(returnVal);
     }
+
 }

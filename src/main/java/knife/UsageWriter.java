@@ -6,7 +6,9 @@ import knife.analysis.AvailableAnalyses;
 
 import com.google.inject.Inject;
 
-
+/**
+ * Writes out the help
+ */
 public class UsageWriter {
 
     private final PrintStream out;

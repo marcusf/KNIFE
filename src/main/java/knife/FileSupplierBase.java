@@ -15,7 +15,13 @@ import org.apache.commons.cli.CommandLine;
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 
-public class FileSupplierBase implements FileSupplier {
+/**
+ * Base class implementing FileSupplier. 
+ * Parses argv and normalizes path names in a way that the
+ * rest of KNIFE can understand. Does not do any filtering 
+ * of input.
+ */
+public abstract class FileSupplierBase implements FileSupplier {
     
     private List<String> argv;
 

@@ -13,6 +13,14 @@ import com.google.inject.internal.Lists;
 import knife.maven.generated_pom_4_0_0.Dependency;
 import knife.maven.generated_pom_4_0_0.Model;
 
+/**
+ * Simplifed representation of the fun parts of a Maven POM file.
+ * 
+ * Used as a wrapper around the whole JAXB-generated Maven model
+ * files, picking out the good parts and providing sugar on eg
+ * dependencies.
+ *
+ */
 public class POMModel {
 
     private final Model pomModel;

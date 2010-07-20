@@ -6,6 +6,10 @@ import java.util.List;
 import com.google.inject.Inject;
 import com.google.inject.internal.Lists;
 
+/**
+ * ListOutput is the basic output type of analyses.
+ * Grabs strings as input and prints them when required.
+ */
 public class ListOutput implements Output {
 
     private final List<String> list = Lists.newArrayList();
