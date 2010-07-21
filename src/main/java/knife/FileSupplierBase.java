@@ -21,7 +21,7 @@ import com.google.common.base.Splitter;
  * rest of KNIFE can understand. Does not do any filtering 
  * of input.
  */
-public abstract class FileSupplierBase implements FileSupplier {
+public class FileSupplierBase implements FileSupplier {
     
     private List<String> argv;
 

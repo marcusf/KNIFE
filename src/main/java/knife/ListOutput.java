@@ -12,7 +12,7 @@ import com.google.inject.internal.Lists;
  */
 public class ListOutput implements Output {
 
-    private final List<String> list = Lists.newArrayList();
+    protected final List<String> list = Lists.newArrayList();
     private final PrintStream out;
 
     @Inject

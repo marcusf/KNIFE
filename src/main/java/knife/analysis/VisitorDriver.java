@@ -39,7 +39,7 @@ public class VisitorDriver {
     }
 
 
-    public <R> R analysis(AbstractFoldingVisitor<R> visitor) 
+    public <R> R result(AbstractFoldingVisitor<R> visitor) 
         throws IOException 
     {
         JavacTask task = getTaskForFiles();

@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 /**
- * Guice goo for boostrapping an {@link AbstractFoldingVisitor} 
+ * Guice goo for bootstrapping an {@link AbstractFoldingVisitor} 
  * using the {@link VisitorDriver} and its dependencies to get
  * files for parsing etc in place.
  *
@@ -26,8 +26,8 @@ public abstract class FoldedResultProvider<K> implements Provider<K> {
     public K get()
     {
         try {
-             K analysis = driver.analysis(visitor);
-             return analysis;
+             K result = driver.result(visitor);
+             return result;
         } catch (IOException e) {
             
             throw new RuntimeException(e);
