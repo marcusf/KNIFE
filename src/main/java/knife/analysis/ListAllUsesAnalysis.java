@@ -10,6 +10,11 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Ordering;
 import com.google.inject.Inject;
 
+/**
+ * ListAllUsesAnalysis
+ * 
+ * Prints all the classes imported by any of the files given as input.
+ */
 public class ListAllUsesAnalysis implements Analysis {
 
     private final UsageMap depMap;

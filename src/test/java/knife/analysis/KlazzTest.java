@@ -6,34 +6,34 @@ import org.junit.Test;
 
 public class KlazzTest {
 
-    private Klazz target;
+    private ClassName target;
     
     @Test
     public void test_null_package() 
     {
-        target = new Klazz(null, "Class");
+        target = new ClassName(null, "Class");
         assertEquals("Class", target.toString());
     }
     
     @Test
     public void test_empty_package()
     {
-        target = new Klazz("", "Class");
+        target = new ClassName("", "Class");
         assertEquals("Class", target.toString());
     }
     
     @Test
     public void test_with_package()
     {
-        target = new Klazz("a.b","C");
+        target = new ClassName("a.b","C");
         assertEquals("a.b.C", target.toString());
     }
     
     @Test
     public void test_equality() 
     {
-        target = new Klazz("a","Be");
-        Klazz target2 = new Klazz("a","Be");
+        target = new ClassName("a","Be");
+        ClassName target2 = new ClassName("a","Be");
         assertTrue(target.equals(target2));
     }
     

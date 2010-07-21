@@ -12,6 +12,15 @@ import org.apache.commons.cli.CommandLine;
 import com.google.inject.Inject;
 import com.google.inject.internal.Preconditions;
 
+/**
+ * ImportedByAnalysis
+ * 
+ * o Options: 
+ *   -i: The class name to match
+ *   
+ * ImportedByAnalysis works much like Eclipse Ctrl+Shift+G,
+ * showing which classes use the class given with "-i".
+ */
 public class ImportedByAnalysis implements Analysis {
 
     private final ListOutput out;

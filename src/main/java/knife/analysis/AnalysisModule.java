@@ -8,6 +8,9 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
 
+/**
+ * Wiring for the analysis module. Guice goo to keep things together.
+ */
 public class AnalysisModule extends AbstractModule {
 
     private final String analysis;
@@ -21,19 +24,19 @@ public class AnalysisModule extends AbstractModule {
     {
             
         bind(UsageMapVisitor.class);
-        bind(KlazzIndexVisitor.class);
+        bind(ClassIndexVisitor.class);
         
         bind(UsageMap.class)
             .toProvider(PopulatedUsageMapProvider.class);
         
-        bind(KlazzIndex.class)
-            .toProvider(PopulatedKlazzIndexProvider.class);
+        bind(ClassIndex.class)
+            .toProvider(PopulatedClassIndexProvider.class);
         
         bind(new TypeLiteral<AbstractFoldingVisitor<UsageMap>>(){})
             .to(UsageMapVisitor.class);
 
-        bind(new TypeLiteral<AbstractFoldingVisitor<KlazzIndex>>(){})
-            .to(KlazzIndexVisitor.class);
+        bind(new TypeLiteral<AbstractFoldingVisitor<ClassIndex>>(){})
+            .to(ClassIndexVisitor.class);
                 
         bind(Analysis.class)
             .to(AvailableAnalyses.getAnalyses().get(analysis));
@@ -44,9 +47,9 @@ public class AnalysisModule extends AbstractModule {
         return new UsageMap();
     }
     
-    @Provides @KlazzIndex.New
-    KlazzIndex providesKlazzIndex() {
-        return new KlazzIndex();
+    @Provides @ClassIndex.New
+    ClassIndex providesKlazzIndex() {
+        return new ClassIndex();
     }
     
     @Provides

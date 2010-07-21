@@ -1,11 +1,15 @@
 package knife.analysis;
 
-public class Klazz {
+/**
+ * Representation of a class name. Used for equality
+ * and hash code. 
+ */
+public class ClassName {
 
     private String packageName;
     private String className;
     
-    public Klazz(String packageName, String className) {
+    public ClassName(String packageName, String className) {
         this.packageName = packageName;
         this.className = className;
     }
@@ -51,7 +55,7 @@ public class Klazz {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Klazz other = (Klazz) obj;
+        ClassName other = (ClassName) obj;
         if (className == null) {
             if (other.className != null)
                 return false;

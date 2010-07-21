@@ -13,6 +13,12 @@ import com.sun.source.tree.IdentifierTree;
 import com.sun.source.tree.ImportTree;
 import com.sun.source.util.Trees;
 
+/**
+ * Visitor used to construct the {@link UsageMap} by walking the AST
+ * and for each class in every compilation unit sifting through all
+ * identifiers and mapping them against the {@link ClassIndex} to
+ * see which are valid classes.
+ */
 public class UsageMapVisitor extends AbstractFoldingVisitor<UsageMap> {
 
     private CompilationUnitTree currentUnit;
@@ -20,13 +26,13 @@ public class UsageMapVisitor extends AbstractFoldingVisitor<UsageMap> {
     
     private List<String> classUsages;
     
-    private final KlazzIndex index;
+    private final ClassIndex index;
     private String className;
         
     private boolean visitedClassAlready = false;
     
     @Inject
-    public UsageMapVisitor(KlazzIndex index, @New UsageMap usageMap) {
+    public UsageMapVisitor(ClassIndex index, @New UsageMap usageMap) {
         super(usageMap);
         this.index = index;
     }
@@ -62,27 +68,9 @@ public class UsageMapVisitor extends AbstractFoldingVisitor<UsageMap> {
             String possibleClass = node.getName().toString();
             
             if (index.contains(packageName, possibleClass)) {
-                Klazz k = new Klazz(packageName, possibleClass);
+                ClassName k = new ClassName(packageName, possibleClass);
                 result().addFilesUsedByClass(className, k.toString());
             }
-            
-            //
-            // This code is not really necessary, cause all uses of classes not in this package
-            // should be caught by imports.
-            //
-            // Still require a lot of work.
-            //
-            
-            /*else if (index.contains(possibleClass)) {
-                Set<Klazz> resolved = index.getResolvedClassesByName(possibleClass);
-                for (Klazz item: resolved) {
-                    if (imports.contains(item.toString())) {
-                        addUsagesByClass(item.toString());
-                        break;
-                    }
-                }
-            }*/
-
         }
         
         return super.visitIdentifier(node, p);

@@ -18,6 +18,11 @@ import com.google.inject.BindingAnnotation;
 import com.google.inject.Singleton;
 import static com.google.inject.internal.Preconditions.*;
 
+/**
+ * A mapping of dependencies between the classes in the input set.
+ * Keeps track of which classes use what other classes, and also
+ * a reverse index of what classes are used by which other classes.  
+ */
 @Singleton
 public class UsageMap {
 

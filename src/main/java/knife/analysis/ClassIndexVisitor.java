@@ -1,19 +1,23 @@
 package knife.analysis;
 
 
-import knife.analysis.KlazzIndex.New;
+import knife.analysis.ClassIndex.New;
 
 import com.google.inject.Inject;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.util.Trees;
 
-class KlazzIndexVisitor extends AbstractFoldingVisitor<KlazzIndex> {
+/**
+ * Visitor going over every class in every java file given and 
+ * building a {@link ClassIndex} from it.
+ */
+class ClassIndexVisitor extends AbstractFoldingVisitor<ClassIndex> {
 
     private String packageName;
 
     @Inject
-    public KlazzIndexVisitor(@New KlazzIndex index) {
+    public ClassIndexVisitor(@New ClassIndex index) {
         super(index);
     }
 

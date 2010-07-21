@@ -18,6 +18,10 @@ import com.google.inject.Inject;
 import com.sun.source.util.JavacTask;
 import com.sun.source.util.Trees;
 
+/**
+ * Bootstraps a visitor by getting the files required and 
+ * starting up the analysis.
+ */
 public class VisitorDriver {
 
     private final StandardJavaFileManager fileManager;

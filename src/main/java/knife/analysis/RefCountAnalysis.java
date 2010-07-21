@@ -11,6 +11,17 @@ import com.google.common.collect.SetMultimap;
 import com.google.inject.Inject;
 import com.google.inject.internal.Preconditions;
 
+/**
+ * RefCountAnalysis
+ * 
+ * o Options:
+ *   -n Show which classes reference it for all classes that have 
+ *      less than or equal to n references. Default is 3.
+ *   
+ * Displays a list of all classes used by the input files, ordered 
+ * by how many times they are referenced, in ascending order.
+ * 
+ */
 public class RefCountAnalysis implements Analysis {
 
     private final CommandLine opts;
