@@ -12,7 +12,7 @@ import javax.xml.bind.Unmarshaller;
 
 import com.google.common.collect.HashMultimap;
 
-import knife.maven.generated_pom_4_0_0.Model;
+import knife.maven.generated_slim_pom_4_0_0.Model;
 
 /**
  * Internal class used by {@link TopPOMLoader}. Does the

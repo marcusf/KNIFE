@@ -4,6 +4,13 @@ import javax.tools.JavaCompiler;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
+import knife.maven.POMGraphProvider;
+import knife.maven.POMName;
+import knife.maven.TopPOMLoader;
+
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleDirectedGraph;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
@@ -37,6 +44,12 @@ public class AnalysisModule extends AbstractModule {
 
         bind(new TypeLiteral<AbstractFoldingVisitor<ClassIndex>>(){})
             .to(ClassIndexVisitor.class);
+        
+        bind(new TypeLiteral<SimpleDirectedGraph<POMName, DefaultEdge>>(){})
+            .toProvider(POMGraphProvider.class);
+        
+        bind(TopPOMLoader.class)
+            .toProvider(TopPOMLoaderProvider.class);
                 
         bind(Analysis.class)
             .to(AvailableAnalyses.getAnalyses().get(analysis));

@@ -1,7 +1,6 @@
 package knife;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
@@ -19,8 +18,8 @@ public class MainModule extends AbstractModule {
 
     private final List<String> arguments;
 
-    public MainModule(ArrayList<String> arguments) {
-        this.arguments = arguments.subList(1, arguments.size()-1);
+    public MainModule(List<String> arguments) {
+        this.arguments = arguments.subList(1, arguments.size());
     }
 
     @Override
@@ -28,6 +27,8 @@ public class MainModule extends AbstractModule {
     {
         bind(CommandLine.class)
             .toProvider(CommandLineProvider.class);
+        bind(FileSupplier.class)
+        .to(FileSupplierBase.class);
         bind(JavacFileSupplier.class)
             .to(JavacFileSupplierImpl.class);
         bind(new TypeLiteral<List<String>>(){})

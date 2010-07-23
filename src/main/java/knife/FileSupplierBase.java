@@ -14,6 +14,7 @@ import org.apache.commons.cli.CommandLine;
 
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
+import com.google.inject.Inject;
 
 /**
  * Base class implementing FileSupplier. 
@@ -25,6 +26,7 @@ public class FileSupplierBase implements FileSupplier {
     
     private List<String> argv;
 
+    @Inject
     protected FileSupplierBase(CommandLine arguments) {
         argv = newArrayList(filter(newArrayList(arguments.getArgs()), not(containsPattern("^\\s*$"))));
         argv = transform(argv, new NormalizePathNames());
@@ -34,7 +36,11 @@ public class FileSupplierBase implements FileSupplier {
     {
         public String apply(String input)
         {
-            return on(File.separatorChar).skipNulls().join(Splitter.onPattern(File.separator).omitEmptyStrings().split(input));
+            /* Ugly hack. Need to fix. No time now. */
+            String prefix = input.charAt(0) == File.separatorChar ? File.separator : "";
+            return prefix + 
+                    on(File.separatorChar).skipNulls().join(
+                            Splitter.onPattern(File.separator).omitEmptyStrings().split(input));
         }
     }
 

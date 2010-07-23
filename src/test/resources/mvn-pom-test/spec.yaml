@@ -1,0 +1,6 @@
+description: Longest path analysis should have length 2
+analysis: longestpath
+options: pom.xml
+expected: |
+    knife.tests.module-a
+    knife.tests.module-b

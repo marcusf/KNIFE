@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://maven.apache.org/POM/4.0.0" xmlns="http://maven.apache.org/POM/4.0.0">
+  <xs:element name="project" type="Model">
+    <xs:annotation>
+      <xs:documentation source="version">3.0.0+</xs:documentation>
+      <xs:documentation source="description">
+         The &lt;code&gt;&amp;lt;project&amp;gt;&lt;/code&gt; element is the root of the descriptor.
+         The following table lists all of the possible child elements.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="Model">
+    <xs:annotation>
+      <xs:documentation source="version">3.0.0+</xs:documentation>
+      <xs:documentation source="description">
+         The &lt;code&gt;&amp;lt;project&amp;gt;&lt;/code&gt; element is the root of the descriptor.
+         The following table lists all of the possible child elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="parent" minOccurs="0" type="Parent">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            The location of the parent project, if one exists. Values from the
+            parent project will be the default for this project if they are
+            left unspecified. The location is given as a group ID, artifact ID and version.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="modelVersion" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">Declares to which version of project descriptor this POM conforms.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="groupId" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">3.0.0+</xs:documentation>
+          <xs:documentation source="description">
+            A universally unique identifier for a project. It is normal to
+            use a fully-qualified package name to distinguish it from other projects with a similar name
+            (eg. &lt;code&gt;org.apache.maven&lt;/code&gt;).
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="artifactId" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">3.0.0+</xs:documentation>
+          <xs:documentation source="description">
+            The identifier for this artifact that is unique within the group given by the group ID.
+            An artifact is something that is either produced or used by a project. Examples of artifacts produced by
+            Maven for a project include: JARs, source and binary distributions, and WARs.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">3.0.0+</xs:documentation>
+          <xs:documentation source="description">
+            The full name of the project.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            The current version of the artifact produced by this project.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="modules" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            The modules (sometimes called subprojects) to build as a part of this project.
+            Each module listed is a relative path to the directory containing the module.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="module" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="dependencies" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation source="version">3.0.0+</xs:documentation>
+          <xs:documentation source="description">
+              This element describes all of the dependencies associated with a
+              project.
+              These dependencies are used to construct a classpath for your 
+              project during the build process. They are automatically downloaded from the
+              repositories defined in this project.
+              See &lt;a href=&quot;http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html&quot;&gt;the
+              dependency mechanism&lt;/a&gt; for more information.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dependency" minOccurs="0" maxOccurs="unbounded" type="Dependency"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="dependencyManagement" minOccurs="0" type="DependencyManagement">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            Default dependency information for projects that inherit from
+            this one. The dependencies in this section are not immediately resolved.
+            Instead, when a POM derived from this one declares a dependency 
+            described by a matching groupId and artifactId, the version and other values from this
+            section are used for that dependency if they were not already specified.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="properties" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+             Properties that can be used throughout the POM as a substitution, and are used as filters in resources
+             if enabled. The format is &lt;code&gt;&amp;lt;name&amp;gt;value&amp;lt;/name&amp;gt;&lt;/code&gt;.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>    
+    </xs:all>    
+  </xs:complexType>
+  <xs:complexType name="DependencyManagement">
+    <xs:annotation>
+      <xs:documentation source="version">4.0.0</xs:documentation>
+      <xs:documentation source="description">
+        Section for management of default dependency information for use in a group of POMs.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="dependencies" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            The dependencies specified here are not used until they
+            are referenced in a POM within the group. This allows the
+            specification of a &quot;standard&quot; version for a particular
+            dependency.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dependency" minOccurs="0" maxOccurs="unbounded" type="Dependency"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="Dependency">
+    <xs:annotation>
+      <xs:documentation source="version">3.0.0+</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="groupId" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">3.0.0+</xs:documentation>
+          <xs:documentation source="description">
+            The project group that produced the dependency, e.g.
+            &lt;code&gt;org.apache.maven&lt;/code&gt;.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="artifactId" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">3.0.0+</xs:documentation>
+          <xs:documentation source="description">
+            The unique id for an artifact produced by the project group, e.g.
+            &lt;code&gt;maven-artifact&lt;/code&gt;.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">3.0.0+</xs:documentation>
+          <xs:documentation source="description">
+            The version of the dependency, e.g. &lt;code&gt;3.2.1&lt;/code&gt;. In Maven 2, this can also be
+            specified as a range of versions.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type" minOccurs="0" type="xs:string" default="jar">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            The type of dependency. This defaults to &lt;code&gt;jar&lt;/code&gt;. While it usually represents the extension on
+            the filename of the dependency, that is not always the case. A type can be mapped to a different
+            extension and a classifier.
+            The type often correspongs to the packaging used, though this is also not always the case.
+            Some examples are &lt;code&gt;jar&lt;/code&gt;, &lt;code&gt;war&lt;/code&gt;, &lt;code&gt;ejb-client&lt;/code&gt; and &lt;code&gt;test-jar&lt;/code&gt;.
+            New types can be defined by plugins that set
+            &lt;code&gt;extensions&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;, so this is not a complete list.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="classifier" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            The classifier of the dependency. This allows distinguishing two artifacts that belong to the same POM but
+            were built differently, and is appended to the filename after the version. For example,
+            &lt;code&gt;jdk14&lt;/code&gt; and &lt;code&gt;jdk15&lt;/code&gt;.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="scope" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            The scope of the dependency - &lt;code&gt;compile&lt;/code&gt;, &lt;code&gt;runtime&lt;/code&gt;, &lt;code&gt;test&lt;/code&gt;,
+            &lt;code&gt;system&lt;/code&gt;, and &lt;code&gt;provided&lt;/code&gt;. Used to
+            calculate the various classpaths used for compilation, testing, and so on. It also assists in determining
+            which artifacts to include in a distribution of this project. For more information, see
+            &lt;a href=&quot;http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html&quot;&gt;the
+            dependency mechanism&lt;/a&gt;.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="systemPath" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            FOR SYSTEM SCOPE ONLY. Note that use of this property is &lt;b&gt;discouraged&lt;/b&gt; and may be replaced in later
+            versions. This specifies the path on the filesystem for this dependency.
+            Requires an absolute path for the value, not relative.
+            Use a property that gives the machine specific absolute path,
+            e.g. &lt;code&gt;${java.home}&lt;/code&gt;.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="exclusions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            Lists a set of artifacts that should be excluded from this dependency&apos;s artifact list when it comes to
+            calculating transitive dependencies.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="exclusion" minOccurs="0" maxOccurs="unbounded" type="Exclusion"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="optional" minOccurs="0" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            Indicates the dependency is optional for use of this library. While the version of the dependency will be
+            taken into account for dependency calculation if the library is used elsewhere, it will not be passed on
+            transitively.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="Exclusion">
+    <xs:annotation>
+      <xs:documentation source="version">4.0.0</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="artifactId" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">The artifact ID of the project to exclude.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="groupId" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">The group ID of the project to exclude.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="Parent">
+    <xs:annotation>
+      <xs:documentation source="version">4.0.0</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="artifactId" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">The artifact id of the parent project to inherit from.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="groupId" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">The group id of the parent project to inherit from.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="version" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">The version of the parent project to inherit.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="relativePath" minOccurs="0" type="xs:string" default="../pom.xml">
+        <xs:annotation>
+          <xs:documentation source="version">4.0.0</xs:documentation>
+          <xs:documentation source="description">
+            The relative path of the parent &lt;code&gt;pom.xml&lt;/code&gt; file within the check out.
+            The default value is &lt;code&gt;../pom.xml&lt;/code&gt;.
+            Maven looks for the parent pom first in the reactor of currently building projects, then in this location on
+            the filesystem, then the local repository, and lastly in the remote repo.
+            &lt;code&gt;relativePath&lt;/code&gt; allows you to select a different location,
+            for example when your structure is flat, or deeper without an intermediate parent pom.
+            However, the group ID, artifact ID and version are still required,
+            and must match the file in the location given or it will revert to the repository for the POM.
+            This feature is only for enhancing the development in a local checkout of that project.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+
+</xs:schema>

@@ -5,19 +5,19 @@ import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 
-import knife.FileSupplierBase;
+import knife.FileSupplier;
 import knife.maven.TopPOMLoader;
 
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class POMLoaderProvider implements Provider<TopPOMLoader> {
+public class TopPOMLoaderProvider implements Provider<TopPOMLoader> {
 
-    private final FileSupplierBase fileSupplier;
+    private final FileSupplier fileSupplier;
 
     @Inject
-    public POMLoaderProvider(FileSupplierBase fileSupplier) {
+    public TopPOMLoaderProvider(FileSupplier fileSupplier) {
         this.fileSupplier = fileSupplier;
 
     }
@@ -26,9 +26,9 @@ public class POMLoaderProvider implements Provider<TopPOMLoader> {
     public TopPOMLoader get()
     {
         String fileName = Iterables.get(fileSupplier.getFileNames(), 0);
-        File file = new File(fileName);
         TopPOMLoader topPOMLoader;
         try {
+            File file = new File(fileName).getCanonicalFile();
             topPOMLoader = new TopPOMLoader(file);
         } catch (IOException e) {
             throw new RuntimeException(e);

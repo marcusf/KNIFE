@@ -20,7 +20,7 @@ public class POMGraphProvider implements Provider<SimpleDirectedGraph<POMName, D
             new SimpleDirectedGraph<POMName, DefaultEdge>(DefaultEdge.class);
         
         for (POMName pomName: pomLoader.getPOMs()) {
-            if (graph.containsVertex(pomName)) {
+            if (!graph.containsVertex(pomName)) {
                 graph.addVertex(pomName);
             }
             for (POMName dependency: pomLoader.getDependencies(pomName)) {

@@ -44,6 +44,9 @@ public class TestModule extends AbstractModule {
             .toInstance(arguments);
         
         bind(JavacFileSupplier.class)
+            .to(JavacTestFileSupplierImpl.class);
+        
+        bind(FileSupplier.class)
             .to(TestFileSupplierImpl.class);
         
         bind(String.class)

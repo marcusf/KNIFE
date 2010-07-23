@@ -14,10 +14,11 @@ public class AvailableAnalyses {
         
         Map<String, Class<? extends Analysis>> r = Maps.newHashMap();
         
-        r.put("refcount",   RefCountAnalysis.class);
-        r.put("reftree",    RefTreeAnalysis.class);
-        r.put("importedby", ImportedByAnalysis.class);
-        r.put("imports",    ListAllUsesAnalysis.class);
+        r.put("refcount",    RefCountAnalysis.class);
+        r.put("reftree",     RefTreeAnalysis.class);
+        r.put("importedby",  ImportedByAnalysis.class);
+        r.put("imports",     ListAllUsesAnalysis.class);
+        r.put("longestpath", LongestPathAnalysis.class);
         
         return r;
         

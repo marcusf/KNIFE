@@ -52,7 +52,8 @@ public class LongestPathAnalysis implements Analysis {
         
         return output;
     }
-
+    
+    /** TODO: Memoize */
     private LinkedList<POMName> calculateMaxLength(POMName fromNode)
     {
         Set<DefaultEdge> edgesFromNode = graph.outgoingEdgesOf(fromNode);
@@ -65,6 +66,7 @@ public class LongestPathAnalysis implements Analysis {
         }
         
         longestList.addFirst(fromNode);
+        
         return longestList;
     }
 

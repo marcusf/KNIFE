@@ -10,8 +10,8 @@ import javax.xml.bind.JAXBException;
 import com.google.common.collect.HashMultimap;
 import com.google.inject.internal.Lists;
 
-import knife.maven.generated_pom_4_0_0.Dependency;
-import knife.maven.generated_pom_4_0_0.Model;
+import knife.maven.generated_slim_pom_4_0_0.Dependency;
+import knife.maven.generated_slim_pom_4_0_0.Model;
 
 /**
  * Simplifed representation of the fun parts of a Maven POM file.
