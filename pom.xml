@@ -123,6 +123,11 @@
         <artifactId>jgrapht</artifactId>
         <version>0.7.3</version>
       </dependency>
+      <dependency>
+        <groupId>xom</groupId>
+        <artifactId>xom</artifactId>
+        <version>1.2.5</version>
+      </dependency>
     </dependencies>
 
 </project>

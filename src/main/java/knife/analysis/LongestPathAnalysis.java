@@ -2,6 +2,7 @@ package knife.analysis;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import knife.ListOutput;
@@ -14,6 +15,7 @@ import org.jgrapht.traverse.TopologicalOrderIterator;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.internal.Maps;
 
 public class LongestPathAnalysis implements Analysis {
 
@@ -53,7 +55,6 @@ public class LongestPathAnalysis implements Analysis {
         return output;
     }
     
-    /** TODO: Memoize */
     private LinkedList<POMName> calculateMaxLength(POMName fromNode)
     {
         Set<DefaultEdge> edgesFromNode = graph.outgoingEdgesOf(fromNode);
