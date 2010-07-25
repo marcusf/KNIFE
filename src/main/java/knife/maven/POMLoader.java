@@ -5,14 +5,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import knife.maven.xom.Model;
+import knife.maven.xom.POMParser;
+import nu.xom.ParsingException;
 
 import com.google.common.collect.HashMultimap;
-
-import knife.maven.generated_slim_pom_4_0_0.Model;
 
 /**
  * Internal class used by {@link TopPOMLoader}. Does the
@@ -33,19 +30,16 @@ class POMLoader {
         inputStream = new FileInputStream(pom);
     }
     
-    POMModel getPOMTree() throws JAXBException, IOException {
+    POMModel getPOMTree() throws IOException, ParsingException {
         Model pom = unmarshal();
         POMModel pomModel = new POMModel(pom, pomFile.getParentFile(), depMap);
         return pomModel;
     }
     
-    private Model unmarshal() throws JAXBException
+    private knife.maven.xom.Model unmarshal() throws IOException, ParsingException
     {
-        JAXBContext ctx = JAXBContext.newInstance(Model.class.getPackage().getName());
-        Unmarshaller u = ctx.createUnmarshaller();
-        @SuppressWarnings("unchecked")
-        JAXBElement<Model> doc = (JAXBElement<Model>) u.unmarshal(inputStream);
-        return doc.getValue();
+        POMParser p = new POMParser(pomFile);
+        return p.parse();
     }
 
 }

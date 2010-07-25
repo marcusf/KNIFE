@@ -3,10 +3,9 @@ package knife.analysis;
 import java.io.File;
 import java.io.IOException;
 
-import javax.xml.bind.JAXBException;
-
 import knife.FileSupplier;
 import knife.maven.TopPOMLoader;
+import nu.xom.ParsingException;
 
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
@@ -32,7 +31,7 @@ public class TopPOMLoaderProvider implements Provider<TopPOMLoader> {
             topPOMLoader = new TopPOMLoader(file);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (JAXBException e) {
+        } catch (ParsingException e) {
             throw new RuntimeException(e);
         }
         return topPOMLoader;

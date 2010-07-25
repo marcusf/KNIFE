@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.bind.JAXBException;
+import nu.xom.ParsingException;
 
 import com.google.common.collect.HashMultimap;
 import com.google.inject.internal.Maps;
@@ -30,8 +30,9 @@ public class TopPOMLoader {
      * Constructs a POM tree from the file given. 
      * This actually does the recursion, meaning it is potentially
      * a very expensive operation.
+     * @throws ParsingException 
      */
-    public TopPOMLoader(File pomFile) throws IOException, JAXBException {
+    public TopPOMLoader(File pomFile) throws IOException, ParsingException {
         depMap = HashMultimap.create();
         models = Maps.newHashMap();
 

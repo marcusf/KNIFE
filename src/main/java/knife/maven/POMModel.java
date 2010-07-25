@@ -2,16 +2,15 @@ package knife.maven;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBException;
+import nu.xom.ParsingException;
+
+import knife.maven.xom.Dependency;
+import knife.maven.xom.Model;
 
 import com.google.common.collect.HashMultimap;
 import com.google.inject.internal.Lists;
-
-import knife.maven.generated_slim_pom_4_0_0.Dependency;
-import knife.maven.generated_slim_pom_4_0_0.Model;
 
 /**
  * Simplifed representation of the fun parts of a Maven POM file.
@@ -32,7 +31,7 @@ public class POMModel {
     POMModel(Model pomModel, 
              File baseDirectory, 
              HashMultimap<POMModel, POMName> depMap) 
-             throws IOException, JAXBException 
+             throws IOException, ParsingException 
     {
         this.pomModel = pomModel;
         this.depMap = depMap;
@@ -54,8 +53,7 @@ public class POMModel {
         }
     }
 
-    private void constructSubModules(File baseDirectory) throws IOException,
-            JAXBException
+    private void constructSubModules(File baseDirectory) throws IOException, ParsingException
     {
         for (String moduleName: getModuleNames()) {
             final String pathname = baseDirectory.getCanonicalPath() 
@@ -71,11 +69,7 @@ public class POMModel {
 
     public List<String> getModuleNames()
     {
-        if (pomModel.getModules() != null) {
-            return pomModel.getModules().getModule();
-        } else {
-            return Lists.newArrayList();
-        }
+        return pomModel.getModuleNames();
     }
     
     public List<POMModel> getModules() 
@@ -84,12 +78,7 @@ public class POMModel {
     }
     
     public List<Dependency> getModuleDependencies() {
-        if (pomModel.getDependencies() != null && 
-            pomModel.getDependencies().getDependency() != null) {
-            return pomModel.getDependencies().getDependency();
-        } else {
-            return new ArrayList<Dependency>();
-        }
+        return pomModel.getModuleDependencies();
     }
 
     public POMName getName()

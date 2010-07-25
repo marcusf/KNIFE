@@ -1,8 +1,8 @@
 package knife.maven;
 
 import static com.google.inject.internal.Preconditions.*;
-import knife.maven.generated_slim_pom_4_0_0.Dependency;
-import knife.maven.generated_slim_pom_4_0_0.Model;
+import knife.maven.xom.Dependency;
+import knife.maven.xom.Model;
 
 /**
  * Represents an artifacts unique name. Used for equality
