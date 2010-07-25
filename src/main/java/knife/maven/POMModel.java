@@ -90,6 +90,12 @@ public class POMModel {
     {
         return pomModel.getArtifactId();
     }
+    
+    @Override
+    public String toString()
+    {
+        return name != null ? name.toString() : super.toString();
+    }
 
     @Override
     public int hashCode()

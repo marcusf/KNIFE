@@ -36,7 +36,7 @@ class POMLoader {
         return pomModel;
     }
     
-    private knife.maven.xom.Model unmarshal() throws IOException, ParsingException
+    private Model unmarshal() throws IOException, ParsingException
     {
         POMParser p = new POMParser(pomFile);
         return p.parse();

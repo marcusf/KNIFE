@@ -32,7 +32,7 @@ public class KNIFE {
      * is kept short and sweet, just creating an entry point
      * and doing the bad exit if needed.
      */
-    public static void main(String[] argv) throws Exception {  
+    public static void main(String[] argv) throws Exception {
         Thread.sleep(25000);
         try {
             new Entrypoint(argv, new UsageWriter(System.err)).run();

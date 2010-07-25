@@ -92,7 +92,7 @@ public class POMParser {
     {
         Elements dependencies = e.getChildElements();
         for (int i = 0; i < dependencies.size(); i++) {
-            Element dep = dependencies.get(0);
+            Element dep = dependencies.get(i);
             Dependency dependency = parseDependency(dep);
             output.moduleDependencies.add(dependency);
         }
