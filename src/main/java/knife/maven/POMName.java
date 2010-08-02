@@ -1,6 +1,5 @@
 package knife.maven;
 
-import static com.google.inject.internal.Preconditions.*;
 import knife.maven.xom.Dependency;
 import knife.maven.xom.Model;
 
@@ -41,10 +40,7 @@ public class POMName {
         return new POMName(pomDependency.getGroupId(), pomDependency.getArtifactId());
     }
 
-    public POMName(String groupId, String artifactId) {
-        checkNotNull(artifactId);
-        checkNotNull(groupId);
-        
+    public POMName(String groupId, String artifactId) {        
         this.artifactId = artifactId;
         this.groupId = groupId;
     }

@@ -1,7 +1,9 @@
 package knife.analysis;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import knife.ListOutput;
@@ -31,6 +33,9 @@ public class LongestPathAnalysis implements Analysis {
     @Override
     public Output execute()
     {
+        
+        Map<POMName, LinkedList<POMName>> cache = new HashMap<POMName, LinkedList<POMName>>();
+        
         TopologicalOrderIterator<POMName, DefaultEdge> iter = 
             new TopologicalOrderIterator<POMName, DefaultEdge>(graph);
 
@@ -39,7 +44,11 @@ public class LongestPathAnalysis implements Analysis {
         while (iter.hasNext()) {
             POMName fromNode = iter.next();
             
-            List<POMName> possibleMax = calculateMaxLength(fromNode);
+            if (!graph.incomingEdgesOf(fromNode).isEmpty()) {
+                break;
+            }
+
+            List<POMName> possibleMax = calculateMaxLength(cache, graph, fromNode);
             
             if (possibleMax.size() > max.size()) {
                 max = possibleMax;
@@ -53,18 +62,30 @@ public class LongestPathAnalysis implements Analysis {
         return output;
     }
     
-    private LinkedList<POMName> calculateMaxLength(POMName fromNode)
+    @SuppressWarnings("unchecked")
+    private <A,B extends DefaultEdge> LinkedList<A> 
+        calculateMaxLength(Map<A, LinkedList<A>> cache, 
+                           SimpleDirectedGraph<A, B> graph, 
+                           A fromNode)
     {
-        Set<DefaultEdge> edgesFromNode = graph.outgoingEdgesOf(fromNode);
-        LinkedList<POMName> longestList = Lists.newLinkedList();
-        for (DefaultEdge e: edgesFromNode) {
-            LinkedList<POMName> candidate = calculateMaxLength(graph.getEdgeTarget(e));
+        if (cache.containsKey(fromNode)) {
+            return (LinkedList<A>) cache.get(fromNode).clone();
+        }
+
+        Set<B> edgesFromNode = graph.outgoingEdgesOf(fromNode);
+
+        LinkedList<A> longestList = new LinkedList<A>();
+        
+        for (B e: edgesFromNode) {
+            LinkedList<A> candidate = calculateMaxLength(cache, graph, graph.getEdgeTarget(e));
             if (candidate.size() >= longestList.size()) {
                 longestList = candidate;
             }
         }
         
         longestList.addFirst(fromNode);
+        
+        cache.put(fromNode, (LinkedList<A>) longestList.clone());
         
         return longestList;
     }

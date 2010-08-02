@@ -29,7 +29,7 @@ public class POMParser {
     public Model parse() 
            throws ValidityException, ParsingException, IOException 
     {
-        Builder builder = new Builder();
+        Builder builder = new Builder(false);
         Document doc = builder.build(input);
         Element root = doc.getRootElement();
         
