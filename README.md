@@ -6,34 +6,46 @@ bit messy.
 
 Using KNIFE
 -------------------------------------------------------------------------------------------------
-KNIFE currently features four simple analyses, which are called by:
+KNIFE currently features a few simple analyses, which are called by:
 
         java -jar KNIFE.jar <analysis> [args] [file1 [file2 [...]]]
 
-### `reftree`: Follow the reference tree
+The analyses are either over a corpus of java files or over a maven artifact with its submodules.
+
+### Java analyses
+
+#### `reftree`: Follow the reference tree
 Picks out the _`-n`_ most references classes and follows their dependencies recursively until
 all dependencies are enumerated. Can be used to find natural slicing points in large code trees.
 
-#### Parameters
+##### Parameters
  * `-n` How many of the most referenced classes should be used as a starting point.
   Default is 3. 
 
-### `refcount`: Reference congestion
+#### `refcount`: Reference congestion
 Displays a list of all classes used by the input files, ordered by how many times they are 
 referenced, in ascending order.
 
-#### Parameters
+##### Parameters
  * `-n` Show which classes reference it for all classes that have less than or equal to
    _n_ references. Default is 3.
     
-### `importedby`: Show which classes references a class
+#### `importedby`: Show which classes references a class
 Finds out which classes references a certain class. Similar to Ctrl+Shift+G in Eclipse.
 
-#### Parameters
+##### Parameters
  * `-i` The referenced class to be analysed. Needs to be a qualified name.
 
-### `imports`: Global list of all imports
+#### `imports`: Global list of all imports
 Gives a list of all the imports of all the files listed in the input.
+
+### Maven analyses
+Maven analyses take a pom.xml as an input, and then analyses this and the maven artifacts 
+given as modules of this pom (recursively).
+
+#### `longestpath`: Calculate longest dependency chain
+Walks through the artifact graph constructed from the POM and finds the longest chain of
+dependencies in the graph.
 
 ### Parameters valid for all analyses
 Parameters here can be given to any of the analyses.
